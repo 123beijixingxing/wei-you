@@ -1,0 +1,4 @@
+com\weiyou\notice\controller\NoticeController.class
+com\weiyou\notice\controller\NoticeController$NoticeReadResult.class
+com\weiyou\notice\controller\NoticeController$NoticeItem.class
+com\weiyou\notice\controller\NoticeController$NoticeReadRequest.class

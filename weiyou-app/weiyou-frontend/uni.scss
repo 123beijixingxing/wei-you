@@ -1,0 +1,38 @@
+:root,
+page {
+  --wy-primary: #0d5c52;
+  --wy-primary-soft: #edf6f3;
+  --wy-accent: #cb7c46;
+  --wy-bg: #f3efe7;
+  --wy-surface: #fffdf8;
+  --wy-text: #1f2726;
+  --wy-subtext: #66716c;
+  --wy-line: rgba(31, 39, 38, 0.08);
+}
+
+.title-xl {
+  font-size: 52rpx;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.title-lg {
+  font-size: 38rpx;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.title-md {
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.body-md {
+  font-size: 28rpx;
+  line-height: 1.6;
+}
+
+.body-sm {
+  font-size: 24rpx;
+  line-height: 1.6;
+}

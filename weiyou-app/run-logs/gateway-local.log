@@ -1,0 +1,124 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------< com.weiyou:weiyou-gateway >----------------------
+[INFO] Building weiyou-gateway 0.1.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.3.5:run (default-cli) > test-compile @ weiyou-gateway >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ weiyou-gateway ---
+[INFO] Copying 1 resource from src\main\resources to target\classes
+[INFO] Copying 0 resource from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ weiyou-gateway ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ weiyou-gateway ---
+[INFO] skip non existing resourceDirectory C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-boot\weiyou-gateway\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ weiyou-gateway ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.3.5:run (default-cli) < test-compile @ weiyou-gateway <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.5:run (default-cli) @ weiyou-gateway ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-06-01T13:31:32.146+08:00  INFO 142444 --- [weiyou-gateway] [           main] c.w.b.gateway.WeiyouGatewayApplication   : Starting WeiyouGatewayApplication using Java 21.0.7 with PID 142444 (C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-boot\weiyou-gateway\target\classes started by admin in C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-boot\weiyou-gateway)
+2026-06-01T13:31:32.150+08:00  INFO 142444 --- [weiyou-gateway] [           main] c.w.b.gateway.WeiyouGatewayApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-06-01T13:31:34.234+08:00  INFO 142444 --- [weiyou-gateway] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-01T13:31:34.238+08:00  INFO 142444 --- [weiyou-gateway] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-01T13:31:34.287+08:00  INFO 142444 --- [weiyou-gateway] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 26 ms. Found 0 Redis repository interfaces.
+2026-06-01T13:31:34.608+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=eb8b7df4-6b8d-3626-97a2-66caebc53d40
+2026-06-01T13:31:38.066+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [After]
+2026-06-01T13:31:38.066+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Before]
+2026-06-01T13:31:38.066+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Between]
+2026-06-01T13:31:38.066+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Cookie]
+2026-06-01T13:31:38.066+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Header]
+2026-06-01T13:31:38.066+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Host]
+2026-06-01T13:31:38.067+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Method]
+2026-06-01T13:31:38.067+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Path]
+2026-06-01T13:31:38.067+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Query]
+2026-06-01T13:31:38.067+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [ReadBody]
+2026-06-01T13:31:38.067+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [RemoteAddr]
+2026-06-01T13:31:38.067+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+2026-06-01T13:31:38.067+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Weight]
+2026-06-01T13:31:38.067+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [CloudFoundryRouteService]
+2026-06-01T13:31:38.435+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+2026-06-01T13:31:38.926+08:00  INFO 142444 --- [weiyou-gateway] [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 19090 (http)
+2026-06-01T13:31:38.995+08:00  INFO 142444 --- [weiyou-gateway] [           main] c.w.b.gateway.WeiyouGatewayApplication   : Started WeiyouGatewayApplication in 8.164 seconds (process running for 8.861)
+2026-06-01T13:31:57.722+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/app/bootstrap -> 200 (136 ms) traceId=0b1c8d4e13104ca0978b170ff3ad34bf
+2026-06-01T13:31:57.816+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (150 ms) traceId=91bb434440814b2dbbeddefe019e60f0
+2026-06-01T13:36:24.494+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/app/bootstrap -> 200 (35 ms) traceId=b564ddcaa6eb476ea3a2e6cea4f3866d
+2026-06-01T13:36:24.600+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (143 ms) traceId=8efde30e0e284d9d8a8209f6e149c99e
+2026-06-01T13:36:50.649+08:00  INFO 142444 --- [weiyou-gateway] [ioEventLoop-5-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (39 ms) traceId=b98d94218e3b40749b1e5be8c2d62340
+2026-06-01T13:36:52.597+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (3 ms) traceId=e52b7fa70f0e4cafb86523bc937e3208
+2026-06-01T14:44:10.369+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/app/bootstrap -> 200 (77 ms) traceId=72096a7f98614baa9970424e53547797
+2026-06-01T14:44:10.502+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (164 ms) traceId=bdcab535c2b44268939040c402aeca39
+2026-06-01T15:14:58.785+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (206 ms) traceId=012e98ad56cc4087827bf6342d44b60f
+2026-06-01T15:15:17.460+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (131 ms) traceId=a9b267d343424d2fa8100bab1baaf81d
+2026-06-01T15:38:15.845+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/app/bootstrap -> 200 (47 ms) traceId=20bf264010394662854b64cb51323e1b
+2026-06-01T15:49:25.058+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (274 ms) traceId=71b339034344408887fce634c4fc1e14
+2026-06-01T18:26:10.996+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (617 ms) traceId=86796e71a5824811b3803eec1424d21a
+2026-06-01T18:26:11.200+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/search -> 200 (183 ms) traceId=adf771f14d2c430da11d5311b057776b
+2026-06-01T18:26:11.324+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/contact/friend/apply -> 200 (114 ms) traceId=642116e29339492883cbdce1cddac4dd
+2026-06-01T18:26:11.364+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/friend/request/list -> 200 (30 ms) traceId=13b63cfb57374b18ab0de5b96f627a55
+2026-06-01T18:26:11.400+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/contact/friend/request/handle -> 200 (27 ms) traceId=c6596297db9943e3969b299af9f0da6f
+2026-06-01T18:26:11.423+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/list -> 200 (14 ms) traceId=77d54eec6e25458191e1db69128ab1e6
+2026-06-01T18:26:11.813+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/chat/conversation/open-single -> 200 (384 ms) traceId=70da1936ff2047bbbc9a3e2a404cc528
+2026-06-01T18:26:11.884+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/chat/message/send -> 200 (61 ms) traceId=308a054b984843c1aa884b518280e394
+2026-06-01T18:26:11.990+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/message/history -> 200 (100 ms) traceId=ed6f6949efb643089d1885b740310b13
+2026-06-01T18:26:12.041+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/moment/create -> 200 (46 ms) traceId=13df0fa607924e7e98de6acc23e1c50d
+2026-06-01T18:26:12.063+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/moment/timeline -> 200 (17 ms) traceId=c8b67e0b1ef5444587fe5ccbdb74a92a
+2026-06-01T18:26:12.627+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/wallet/transfer/create -> 200 (560 ms) traceId=5d3be141e14b40a8a71582e68513ae84
+2026-06-01T18:26:12.658+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/wallet/bill/list -> 200 (24 ms) traceId=447e9b00926444afab69680c5e19dbeb
+2026-06-01T18:28:09.601+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (111 ms) traceId=c0ddc689831648b99cb2a8ec65355d53
+2026-06-01T18:28:09.619+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/search -> 200 (10 ms) traceId=65cf3a29c5cf48319fb7c72e27ad41bc
+2026-06-01T18:28:09.640+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/contact/friend/apply -> 200 (15 ms) traceId=94a42e67fe634fcda926a3b9b12d420a
+2026-06-01T18:28:09.661+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/friend/request/list -> 200 (17 ms) traceId=2c65d489c9104c7ba403032ccdcc272f
+2026-06-01T18:28:09.694+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/contact/friend/request/handle -> 200 (17 ms) traceId=e3400a76f18646a580386fa34984b50a
+2026-06-01T18:28:09.709+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/list -> 200 (11 ms) traceId=4c6032e38e6c484d93abba5b1c6fc93d
+2026-06-01T18:28:09.739+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/chat/conversation/open-single -> 200 (24 ms) traceId=fd016dc80c484fafbdc6b7066d87f953
+2026-06-01T18:28:09.760+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/chat/message/send -> 200 (16 ms) traceId=aea3e54b000940d98722232505245f74
+2026-06-01T18:28:10.284+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/message/history -> 200 (17 ms) traceId=fcbf8fc559bb48ab9fbf39af3ba76dd1
+2026-06-01T18:28:10.311+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/moment/create -> 200 (20 ms) traceId=498a7f9000fd4bafa6d6e7a781cc69f6
+2026-06-01T18:28:10.828+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/moment/timeline -> 200 (11 ms) traceId=eabec64a35224767aad5ea12c1c1e046
+2026-06-01T18:28:10.859+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/wallet/transfer/create -> 200 (24 ms) traceId=fbc332e7492a40fda8d7fd808376044b
+2026-06-01T18:28:10.876+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/wallet/bill/list -> 200 (12 ms) traceId=2189bf341ec84eaeb5054b066b0cf562
+2026-06-01T18:33:58.977+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (436 ms) traceId=74125c6a632c4efcbce28e0ea159354a
+2026-06-01T18:33:59.007+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/search -> 200 (23 ms) traceId=b3e1675e644c4dd3b7bf2b69802ac8b7
+2026-06-01T18:33:59.036+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/contact/friend/apply -> 200 (23 ms) traceId=6ffd0979f55e4651b78d5ab380265c3c
+2026-06-01T18:33:59.055+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/friend/request/list -> 200 (13 ms) traceId=104c21f4a24044548e60617720f80213
+2026-06-01T18:33:59.076+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/contact/friend/request/handle -> 200 (16 ms) traceId=21d73af150b74154821842037c47140c
+2026-06-01T18:33:59.091+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/list -> 200 (11 ms) traceId=aa7c241099f54734aa7bcf3fdbddb064
+2026-06-01T18:33:59.296+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/chat/conversation/open-single -> 200 (200 ms) traceId=1fc2cdbf2ecd4fc8bb3e1bd6f83e4a9e
+2026-06-01T18:33:59.341+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/chat/message/send -> 200 (39 ms) traceId=55f33d172d3f487ebf6d8af6159d3dd4
+2026-06-01T18:33:59.874+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/message/history -> 200 (27 ms) traceId=73bde3c0b18548d99c503dcbe4a6b15b
+2026-06-01T18:33:59.937+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/moment/create -> 200 (58 ms) traceId=d1047841ca0e4d62919046b3022cb79b
+2026-06-01T18:34:00.461+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/moment/timeline -> 200 (19 ms) traceId=4d4427bb51c6493d88e61d9763b57dfa
+2026-06-01T18:34:00.995+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/wallet/transfer/create -> 200 (529 ms) traceId=0efd5177cbfc47b282bd8c2fb24050a5
+2026-06-01T18:34:01.093+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/wallet/bill/list -> 200 (84 ms) traceId=9b84e6fbc2054b238eb52f01e8f46cf1
+2026-06-01T18:38:33.630+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (450 ms) traceId=48946204cf73412d95495e9322af3555
+2026-06-01T18:38:33.663+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/search -> 200 (24 ms) traceId=2ea52b9d3be24e7c90afa97acd18c657
+2026-06-01T18:38:33.693+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/contact/friend/apply -> 200 (24 ms) traceId=1490eb2a6ba64329845ca315be669687
+2026-06-01T18:38:33.711+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/friend/request/list -> 200 (14 ms) traceId=140e4193379640beb1c95d11fcf773f3
+2026-06-01T18:38:33.732+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/contact/friend/request/handle -> 200 (15 ms) traceId=47d89c51244f4b088e9a26b6f4dd9946
+2026-06-01T18:38:33.748+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/contact/list -> 200 (11 ms) traceId=71f443c1d66f47dc8d0366e640be3697
+2026-06-01T18:38:33.925+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/chat/conversation/open-single -> 200 (171 ms) traceId=680976870ed143d78faedb78838d3abe
+2026-06-01T18:38:33.966+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/chat/message/send -> 200 (36 ms) traceId=72c87775822641a3892c392d1e38a268
+2026-06-01T18:38:34.494+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/message/history -> 200 (22 ms) traceId=d8beecff8ba2425ba4d474da9c576656
+2026-06-01T18:38:34.541+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/moment/create -> 200 (42 ms) traceId=57e6335a8ba247eebe0fdabdc310f8ac
+2026-06-01T18:38:35.075+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/moment/timeline -> 200 (18 ms) traceId=890d77b097aa43958e9feef560fd6ce8
+2026-06-01T18:38:35.642+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/wallet/transfer/create -> 200 (552 ms) traceId=1b60846f04f54ccb8d16316ce9b2418b
+2026-06-01T18:38:35.671+08:00  INFO 142444 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/wallet/bill/list -> 200 (24 ms) traceId=9cc104f3ef34482393157fa0ab6fc0d5

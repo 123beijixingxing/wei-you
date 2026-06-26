@@ -1,0 +1,23 @@
+{
+  "id": "weiyou-local-env",
+  "name": "微友App Local",
+  "values": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api", "enabled": true },
+    { "key": "wsUrl", "value": "ws://localhost:8081/ws/chat", "enabled": true },
+    { "key": "accessToken", "value": "", "enabled": true },
+    { "key": "refreshToken", "value": "", "enabled": true },
+    { "key": "deviceId", "value": "ios-iphone15pm-001", "enabled": true },
+    { "key": "userId", "value": "10001", "enabled": true },
+    { "key": "targetUserId", "value": "10002", "enabled": true },
+    { "key": "conversationId", "value": "90001", "enabled": true },
+    { "key": "messageId", "value": "70003", "enabled": true },
+    { "key": "groupId", "value": "90002", "enabled": true },
+    { "key": "momentId", "value": "30001", "enabled": true },
+    { "key": "redPacketId", "value": "93001", "enabled": true },
+    { "key": "officialId", "value": "20001", "enabled": true },
+    { "key": "miniAppId", "value": "miniapp-demo-001", "enabled": true }
+  ],
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2026-05-13T00:00:00.000Z",
+  "_postman_exported_using": "OpenCode"
+}

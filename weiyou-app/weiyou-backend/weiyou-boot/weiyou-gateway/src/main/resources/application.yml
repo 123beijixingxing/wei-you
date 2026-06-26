@@ -1,0 +1,62 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: weiyou-gateway
+  data:
+    redis:
+      host: ${WEIYOU_REDIS_HOST:localhost}
+      port: ${WEIYOU_REDIS_PORT:6379}
+      timeout: 5s
+  cloud:
+    gateway:
+      routes:
+        - id: weiyou-app-api
+          uri: ${WEIYOU_APP_SERVER_URL:http://localhost:8080}
+          predicates:
+            - Path=/api/**
+        - id: weiyou-im-ws
+          uri: ${WEIYOU_IM_GATEWAY_URL:ws://localhost:8081}
+          predicates:
+            - Path=/ws/**
+
+weiyou:
+  gateway:
+    public-paths:
+      - /api/app/bootstrap
+      - /api/auth/login/password
+      - /api/auth/login/sms
+      - /api/auth/register
+      - /api/auth/sms/send
+      - /api/auth/token/refresh
+      - /actuator/**
+    rate-limit:
+      enabled: true
+      max-requests: 120
+      window-seconds: 60
+      identity-mode: AUTO
+      include-paths:
+        - /api/**
+        - /ws/**
+      exclude-paths:
+        - /actuator/**
+      rules:
+        - path: /api/auth/login/password
+          identity-mode: IP
+          max-requests: 20
+          window-seconds: 60
+        - path: /api/wallet/**
+          identity-mode: USER_ID
+          max-requests: 40
+          window-seconds: 60
+        - path: /ws/**
+          identity-mode: USER_ID
+          max-requests: 80
+          window-seconds: 60
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

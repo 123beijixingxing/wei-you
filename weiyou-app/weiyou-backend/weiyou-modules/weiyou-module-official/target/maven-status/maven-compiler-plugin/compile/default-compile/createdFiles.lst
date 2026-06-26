@@ -1,0 +1,8 @@
+com\weiyou\official\controller\OfficialController.class
+com\weiyou\official\controller\OfficialController$ArticleLikeResult.class
+com\weiyou\official\controller\OfficialController$OfficialFollowResult.class
+com\weiyou\official\controller\OfficialController$OfficialAccountDetail.class
+com\weiyou\official\controller\OfficialController$ArticleDetail.class
+com\weiyou\official\controller\OfficialController$OfficialFollowRequest.class
+com\weiyou\official\controller\OfficialController$ArticleItem.class
+com\weiyou\official\controller\OfficialController$ArticleLikeRequest.class

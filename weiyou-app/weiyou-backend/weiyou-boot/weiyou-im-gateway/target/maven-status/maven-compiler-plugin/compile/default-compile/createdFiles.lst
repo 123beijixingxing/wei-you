@@ -1,0 +1,11 @@
+com\weiyou\boot\im\WeiyouImGatewayApplication.class
+com\weiyou\boot\im\ws\ChatRedisSubscriber.class
+com\weiyou\boot\im\ws\OnlineSessionRegistry$SessionBinding.class
+com\weiyou\boot\im\ws\ChatRedisRouter$1.class
+com\weiyou\boot\im\config\RedisPubSubConfig.class
+com\weiyou\boot\im\ws\AuthenticatedHandshakeInterceptor.class
+com\weiyou\boot\im\ws\ChatWebSocketHandler.class
+com\weiyou\boot\im\ws\ChatWebSocketHandler$1.class
+com\weiyou\boot\im\ws\ChatRedisRouter.class
+com\weiyou\boot\im\config\WebSocketConfig.class
+com\weiyou\boot\im\ws\OnlineSessionRegistry.class

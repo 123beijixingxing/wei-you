@@ -1,0 +1,7 @@
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-relation\src\main\java\com\weiyou\relation\app\service\impl\RelationPersistenceServiceImpl.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-relation\src\main\java\com\weiyou\relation\app\service\RelationPersistenceService.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-relation\src\main\java\com\weiyou\relation\controller\ContactController.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-relation\src\main\java\com\weiyou\relation\domain\entity\FriendRelationEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-relation\src\main\java\com\weiyou\relation\domain\entity\FriendRequestEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-relation\src\main\java\com\weiyou\relation\infra\persistence\mapper\FriendRelationMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-relation\src\main\java\com\weiyou\relation\infra\persistence\mapper\FriendRequestMapper.java

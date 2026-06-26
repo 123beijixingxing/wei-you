@@ -1,0 +1,34 @@
+
+> weiyou-frontend@0.1.0 dev:h5
+> cross-env UNI_INPUT_DIR=. uni -p h5 --host 0.0.0.0 --port 19088
+
+请注意运行模式下，因日志输出、sourcemap 以及未压缩源码等原因，性能和包体积，均不及发行模式。
+vite是按需编译，运行时点击某个未编译页面会先编译后加载，导致显示较慢，发行后无此问题。
+编译器版本：5.08（vue3）
+正在编译中...
+
+uni-app 有新版本发布，请执行 `npx @dcloudio/uvm@latest alpha` 更新，更新日志详见：https://download1.dcloud.net.cn/hbuilderx/changelog/5.11.2026052520-alpha.html
+[36m
+  vite v5.2.8[39m[32m dev server running at:
+[39m
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m19088[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.9.188:[1m19088[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.17.148.241:[1m19088[22m/[39m
+
+  [36mready in 4558ms.[39m
+
+[2m15:11:45[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/App.vue?vue&type=style&index=0&lang.css, /App.vue[22m
+[2m15:14:25[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/pages/auth/login.vue?vue&type=style&index=0&scoped=2cc9f8c3&lang.css[22m
+[2m15:25:02[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/pages/auth/login.vue?vue&type=style&index=0&scoped=2cc9f8c3&lang.css[22m
+[2m16:30:49[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/pages/auth/login.vue?vue&type=style&index=0&scoped=2cc9f8c3&lang.css[22m
+[2m16:47:25[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/App.vue, /pages/auth/login.vue[22m
+[2m16:51:54[22m [31m[1m[vite][22m[39m [31mconnect ECONNREFUSED ::1:18090[39m
+[2m16:58:09[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/pages/auth/login.vue[22m
+[2m17:06:39[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/pages/auth/login.vue[22m
+[2m17:07:26[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/App.vue, /pages/auth/login.vue[22m
+[2m17:08:35[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/App.vue, /pages/auth/login.vue[22m
+[2m17:10:26[22m [31m[1m[vite][22m[39m [31mconnect ECONNREFUSED ::1:18090[39m
+[2m17:10:27[22m [31m[1m[vite][22m[39m [31mconnect ECONNREFUSED ::1:18090[39m
+[2m17:10:28[22m [31m[1m[vite][22m[39m [31mconnect ECONNREFUSED ::1:18090[39m
+[2m17:31:16[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/pages/auth/login.vue[22m
+[2m17:31:58[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/App.vue, /pages/auth/login.vue[22m

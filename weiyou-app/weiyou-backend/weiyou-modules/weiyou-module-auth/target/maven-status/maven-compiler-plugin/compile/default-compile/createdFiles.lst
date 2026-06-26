@@ -1,0 +1,16 @@
+com\weiyou\auth\app\service\impl\AuthPersistenceServiceImpl.class
+com\weiyou\auth\controller\AuthController$DeviceOfflineRequest.class
+com\weiyou\auth\domain\entity\UserDeviceEntity.class
+com\weiyou\auth\controller\AuthController$SmsSendRequest.class
+com\weiyou\auth\controller\AuthController$DeviceSession.class
+com\weiyou\auth\controller\AuthController$LoginTokenData.class
+com\weiyou\auth\controller\AuthController$LogoutRequest.class
+com\weiyou\auth\controller\AuthController$RegisterRequest.class
+com\weiyou\auth\infra\persistence\mapper\UserAccountMapper.class
+com\weiyou\auth\controller\AuthController$RefreshTokenRequest.class
+com\weiyou\auth\controller\AuthController$SmsLoginRequest.class
+com\weiyou\auth\domain\entity\UserAccountEntity.class
+com\weiyou\auth\controller\AuthController.class
+com\weiyou\auth\infra\persistence\mapper\UserDeviceMapper.class
+com\weiyou\auth\app\service\AuthPersistenceService.class
+com\weiyou\auth\controller\AuthController$PasswordLoginRequest.class

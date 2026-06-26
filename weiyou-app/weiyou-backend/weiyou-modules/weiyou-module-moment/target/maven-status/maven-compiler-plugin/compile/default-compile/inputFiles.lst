@@ -1,0 +1,9 @@
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-moment\src\main\java\com\weiyou\moment\app\service\impl\MomentPersistenceServiceImpl.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-moment\src\main\java\com\weiyou\moment\app\service\MomentPersistenceService.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-moment\src\main\java\com\weiyou\moment\controller\MomentController.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-moment\src\main\java\com\weiyou\moment\domain\entity\MomentCommentEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-moment\src\main\java\com\weiyou\moment\domain\entity\MomentMediaEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-moment\src\main\java\com\weiyou\moment\domain\entity\MomentPostEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-moment\src\main\java\com\weiyou\moment\infra\persistence\mapper\MomentCommentMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-moment\src\main\java\com\weiyou\moment\infra\persistence\mapper\MomentMediaMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-moment\src\main\java\com\weiyou\moment\infra\persistence\mapper\MomentPostMapper.java

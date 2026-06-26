@@ -1,0 +1,25 @@
+{
+  "name": "weiyou-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:h5": "cross-env UNI_INPUT_DIR=. uni -p h5",
+    "build:h5": "cross-env UNI_INPUT_DIR=. uni build -p h5",
+    "dev:mp-weixin": "cross-env UNI_INPUT_DIR=. uni -p mp-weixin",
+    "build:mp-weixin": "cross-env UNI_INPUT_DIR=. uni build -p mp-weixin"
+  },
+  "dependencies": {
+    "@dcloudio/uni-app": "3.0.0-alpha-5000820260508001",
+    "@dcloudio/uni-ui": "^1.5.5",
+    "pinia": "^2.1.7",
+    "vue": "3.4.21"
+  },
+  "devDependencies": {
+    "@dcloudio/types": "3.4.31",
+    "@dcloudio/vite-plugin-uni": "3.0.0-alpha-5000820260508001",
+    "@vitejs/plugin-vue": "5.2.4",
+    "cross-env": "^7.0.3",
+    "sass": "^1.99.0",
+    "vite": "5.2.8"
+  }
+}

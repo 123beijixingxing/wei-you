@@ -1,0 +1,111 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: weiyou-mysql
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - weiyou-mysql-data:/var/lib/mysql
+      - ../docs/需求设计文档/微友数据库DDL初稿.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./weiyou-backend/sql/02-init-demo-data.sql:/docker-entrypoint-initdb.d/02-init-demo-data.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+
+  redis:
+    image: redis:7-alpine
+    container_name: weiyou-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - weiyou-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app-server:
+    build:
+      context: ./weiyou-backend
+      dockerfile: Dockerfile.app-server
+    container_name: weiyou-app-server
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      WEIYOU_DB_URL: jdbc:mysql://mysql:3306/weiyou_account?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      WEIYOU_DB_USERNAME: root
+      WEIYOU_DB_PASSWORD: root
+      WEIYOU_REDIS_HOST: redis
+      WEIYOU_REDIS_PORT: 6379
+      WEIYOU_TOKEN_SECRET: weiyou-dev-secret
+    ports:
+      - "8080:8080"
+    volumes:
+      - weiyou-media-data:/app/data/uploads
+
+  im-gateway:
+    build:
+      context: ./weiyou-backend
+      dockerfile: Dockerfile.im-gateway
+    container_name: weiyou-im-gateway
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      WEIYOU_DB_URL: jdbc:mysql://mysql:3306/weiyou_account?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+      WEIYOU_DB_USERNAME: root
+      WEIYOU_DB_PASSWORD: root
+      WEIYOU_REDIS_HOST: redis
+      WEIYOU_REDIS_PORT: 6379
+      WEIYOU_TOKEN_SECRET: weiyou-dev-secret
+    ports:
+      - "8081:8081"
+
+  gateway:
+    build:
+      context: ./weiyou-backend
+      dockerfile: Dockerfile.gateway
+    container_name: weiyou-gateway
+    depends_on:
+      - app-server
+      - im-gateway
+      - redis
+    environment:
+      WEIYOU_APP_SERVER_URL: http://app-server:8080
+      WEIYOU_IM_GATEWAY_URL: ws://im-gateway:8081
+      WEIYOU_REDIS_HOST: redis
+      WEIYOU_REDIS_PORT: 6379
+    ports:
+      - "8090:8090"
+
+  frontend:
+    build:
+      context: ./weiyou-frontend
+      dockerfile: Dockerfile
+    container_name: weiyou-frontend
+    depends_on:
+      - gateway
+    ports:
+      - "8088:80"
+
+volumes:
+  weiyou-mysql-data:
+  weiyou-redis-data:
+  weiyou-media-data:

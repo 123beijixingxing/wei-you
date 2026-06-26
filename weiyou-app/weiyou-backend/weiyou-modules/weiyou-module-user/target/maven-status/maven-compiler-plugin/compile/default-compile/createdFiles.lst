@@ -1,0 +1,12 @@
+com\weiyou\user\controller\UserProfileController$UpdateStatusRequest.class
+com\weiyou\user\controller\UserSettingController$UserSettingData.class
+com\weiyou\user\controller\UserProfileController$UserProfileData.class
+com\weiyou\user\controller\UserProfileController$QrcodeData.class
+com\weiyou\user\controller\UserProfileController.class
+com\weiyou\user\controller\UserSettingController$UpdateUserSettingRequest.class
+com\weiyou\user\domain\entity\UserProfileEntity.class
+com\weiyou\user\controller\UserSettingController.class
+com\weiyou\user\app\service\impl\UserPersistenceServiceImpl.class
+com\weiyou\user\controller\UserProfileController$UpdateProfileRequest.class
+com\weiyou\user\app\service\UserPersistenceService.class
+com\weiyou\user\infra\persistence\mapper\UserProfileMapper.class

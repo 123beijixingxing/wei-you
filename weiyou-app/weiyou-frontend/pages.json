@@ -1,0 +1,289 @@
+{
+  "easycom": {
+    "autoscan": true,
+    "custom": {
+      "^chat-item$": "@/components/chat-item.vue",
+      "^contact-item$": "@/components/contact-item.vue",
+      "^quick-entry$": "@/components/quick-entry.vue"
+    }
+  },
+  "pages": [
+    {
+      "path": "pages/auth/login",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/chat/index",
+      "style": {
+        "navigationStyle": "custom"
+      }
+    },
+    {
+      "path": "pages/contacts/index",
+      "style": {
+        "navigationBarTitleText": "通讯录"
+      }
+    },
+    {
+      "path": "pages/discover/index",
+      "style": {
+        "navigationBarTitleText": "发现"
+      }
+    },
+    {
+      "path": "pages/me/index",
+      "style": {
+        "navigationBarTitleText": "我"
+      }
+    },
+    {
+      "path": "pages/conversation/detail",
+      "style": {
+        "navigationBarTitleText": "聊天"
+      }
+    },
+    {
+      "path": "pages/conversation/settings",
+      "style": {
+        "navigationBarTitleText": "聊天设置"
+      }
+    },
+    {
+      "path": "pages/moments/index",
+      "style": {
+        "navigationBarTitleText": "朋友圈"
+      }
+    },
+    {
+      "path": "pages/wallet/index",
+      "style": {
+        "navigationBarTitleText": "服务与钱包"
+      }
+    },
+    {
+      "path": "pages/feature-hub/index",
+      "style": {
+        "navigationBarTitleText": "功能中心"
+      }
+    },
+    {
+      "path": "pages/contacts/profile",
+      "style": {
+        "navigationBarTitleText": "联系人资料"
+      }
+    },
+    {
+      "path": "pages/moments/publish",
+      "style": {
+        "navigationBarTitleText": "发布朋友圈"
+      }
+    },
+    {
+      "path": "pages/wallet/transfer",
+      "style": {
+        "navigationBarTitleText": "转账"
+      }
+    },
+    {
+      "path": "pages/wallet/red-packet",
+      "style": {
+        "navigationBarTitleText": "红包"
+      }
+    },
+    {
+      "path": "pages/wallet/bills",
+      "style": {
+        "navigationBarTitleText": "账单明细"
+      }
+    },
+    {
+      "path": "pages/official/detail",
+      "style": {
+        "navigationBarTitleText": "公众号详情"
+      }
+    },
+    {
+      "path": "pages/official/list",
+      "style": {
+        "navigationBarTitleText": "公众号列表"
+      }
+    },
+    {
+      "path": "pages/miniapp/open",
+      "style": {
+        "navigationBarTitleText": "小程序"
+      }
+    },
+    {
+      "path": "pages/official/history",
+      "style": {
+        "navigationBarTitleText": "历史消息"
+      }
+    },
+    {
+      "path": "pages/official/article",
+      "style": {
+        "navigationBarTitleText": "公众号文章"
+      }
+    },
+    {
+      "path": "pages/miniapp/recent",
+      "style": {
+        "navigationBarTitleText": "最近使用的小程序"
+      }
+    },
+    {
+      "path": "pages/miniapp/favorites",
+      "style": {
+        "navigationBarTitleText": "收藏的小程序"
+      }
+    },
+    {
+      "path": "pages/search/index",
+      "style": {
+        "navigationBarTitleText": "搜一搜"
+      }
+    },
+    {
+      "path": "pages/scan/index",
+      "style": {
+        "navigationBarTitleText": "扫一扫"
+      }
+    },
+    {
+      "path": "pages/notice/index",
+      "style": {
+        "navigationBarTitleText": "通知中心"
+      }
+    },
+    {
+      "path": "pages/settings/devices",
+      "style": {
+        "navigationBarTitleText": "设备管理"
+      }
+    },
+    {
+      "path": "pages/settings/index",
+      "style": {
+        "navigationBarTitleText": "设置"
+      }
+    },
+    {
+      "path": "pages/settings/notifications",
+      "style": {
+        "navigationBarTitleText": "消息通知"
+      }
+    },
+    {
+      "path": "pages/settings/privacy",
+      "style": {
+        "navigationBarTitleText": "隐私设置"
+      }
+    },
+    {
+      "path": "pages/profile/edit",
+      "style": {
+        "navigationBarTitleText": "编辑资料"
+      }
+    },
+    {
+      "path": "pages/profile/qrcode",
+      "style": {
+        "navigationBarTitleText": "我的二维码"
+      }
+    },
+    {
+      "path": "pages/profile/status",
+      "style": {
+        "navigationBarTitleText": "状态设置"
+      }
+    },
+    {
+      "path": "pages/contacts/add-friend",
+      "style": {
+        "navigationBarTitleText": "添加朋友"
+      }
+    },
+    {
+      "path": "pages/contacts/new-friend",
+      "style": {
+        "navigationBarTitleText": "新的朋友"
+      }
+    },
+    {
+      "path": "pages/group/list",
+      "style": {
+        "navigationBarTitleText": "群聊"
+      }
+    },
+    {
+      "path": "pages/group/detail",
+      "style": {
+        "navigationBarTitleText": "群详情"
+      }
+    },
+    {
+      "path": "pages/group/create",
+      "style": {
+        "navigationBarTitleText": "发起群聊"
+      }
+    },
+    {
+      "path": "pages/collection/index",
+      "style": {
+        "navigationBarTitleText": "收藏"
+      }
+    },
+    {
+      "path": "pages/cards/index",
+      "style": {
+        "navigationBarTitleText": "卡包"
+      }
+    },
+    {
+      "path": "pages/emoji/store",
+      "style": {
+        "navigationBarTitleText": "表情商店"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f3efe7",
+    "backgroundTextStyle": "light"
+  },
+  "tabBar": {
+    "color": "#6c746f",
+    "selectedColor": "#0d5c52",
+    "backgroundColor": "#f9f6f1",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/chat/index",
+        "text": "微信",
+        "iconPath": "static/tab/chat.svg",
+        "selectedIconPath": "static/tab/chat-active.svg"
+      },
+      {
+        "pagePath": "pages/contacts/index",
+        "text": "通讯录",
+        "iconPath": "static/tab/contacts.svg",
+        "selectedIconPath": "static/tab/contacts-active.svg"
+      },
+      {
+        "pagePath": "pages/discover/index",
+        "text": "发现",
+        "iconPath": "static/tab/discover.svg",
+        "selectedIconPath": "static/tab/discover-active.svg"
+      },
+      {
+        "pagePath": "pages/me/index",
+        "text": "我",
+        "iconPath": "static/tab/me.svg",
+        "selectedIconPath": "static/tab/me-active.svg"
+      }
+    ]
+  }
+}

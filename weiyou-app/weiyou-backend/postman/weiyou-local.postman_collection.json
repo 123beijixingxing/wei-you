@@ -1,0 +1,731 @@
+{
+  "info": {
+    "name": "Weiyou Local API",
+    "description": "Local API collection for the Weiyou backend. Run password login first. Login and refresh requests will write accessToken and refreshToken back into the active Postman environment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "App & Auth",
+      "item": [
+        {
+          "name": "Bootstrap",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/app/bootstrap?clientType=app&version=0.1.0",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "app",
+                "bootstrap"
+              ],
+              "query": [
+                {
+                  "key": "clientType",
+                  "value": "app"
+                },
+                {
+                  "key": "version",
+                  "value": "0.1.0"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Password Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && json.data) {",
+                  "  pm.environment.set('accessToken', json.data.accessToken || '');",
+                  "  pm.environment.set('refreshToken', json.data.refreshToken || '');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mobile\": \"{{mobile}}\",\n  \"password\": \"{{password}}\",\n  \"deviceId\": \"{{deviceId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/login/password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login",
+                "password"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Refresh Token",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const json = pm.response.json();",
+                  "if (json && json.data) {",
+                  "  pm.environment.set('accessToken', json.data.accessToken || '');",
+                  "  pm.environment.set('refreshToken', json.data.refreshToken || '');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"refreshToken\": \"{{refreshToken}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/token/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "token",
+                "refresh"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Device List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/device/list",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "device",
+                "list"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"deviceId\": \"{{deviceId}}\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Current Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/user/profile/me",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "profile",
+                "me"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickname\": \"Micro Friend Demo\",\n  \"city\": \"Shenzhen\",\n  \"signature\": \"Local integration run\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/user/profile/update",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "user",
+                "profile",
+                "update"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Chat",
+      "item": [
+        {
+          "name": "Conversation List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/chat/conversation/list?pageSize=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "chat",
+                "conversation",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "pageSize",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Message History",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/chat/message/history?conversationId={{conversationId}}&pageSize=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "chat",
+                "message",
+                "history"
+              ],
+              "query": [
+                {
+                  "key": "conversationId",
+                  "value": "{{conversationId}}"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Send Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"conversationId\": {{conversationId}},\n  \"msgType\": 1,\n  \"clientMsgId\": \"cmsg-postman-001\",\n  \"content\": {\n    \"text\": \"hello from postman collection\"\n  }\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/message/send",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "chat",
+                "message",
+                "send"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Mark Message Read",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"conversationId\": {{conversationId}},\n  \"messageId\": 70002\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/chat/message/read",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "chat",
+                "message",
+                "read"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Wallet",
+      "item": [
+        {
+          "name": "Wallet Overview",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/wallet/overview",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "overview"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Wallet Bills",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/wallet/bill/list?pageNo=1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "bill",
+                "list"
+              ],
+              "query": [
+                {
+                  "key": "pageNo",
+                  "value": "1"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Transfer Create",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"targetUserId\": {{targetUserId}},\n  \"amountFen\": 100,\n  \"remark\": \"demo transfer from postman\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wallet/transfer/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "transfer",
+                "create"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Create Red Packet",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amountFen\": 300,\n  \"count\": 3,\n  \"type\": 2,\n  \"greeting\": \"good luck\",\n  \"groupId\": {{groupConversationId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wallet/red-packet/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "red-packet",
+                "create"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Open Seeded Red Packet",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"redPacketId\": {{redPacketId}}\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/wallet/red-packet/open",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "wallet",
+                "red-packet",
+                "open"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Discover & Other",
+      "item": [
+        {
+          "name": "Discovery Features",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/feature/discovery?cityCode=440300",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "feature",
+                "discovery"
+              ],
+              "query": [
+                {
+                  "key": "cityCode",
+                  "value": "440300"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Search Suggest",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/search/suggest?keyword=weiyou",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "search",
+                "suggest"
+              ],
+              "query": [
+                {
+                  "key": "keyword",
+                  "value": "weiyou"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Official Account Detail",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/official/account/detail?officialId={{officialId}}",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "official",
+                "account",
+                "detail"
+              ],
+              "query": [
+                {
+                  "key": "officialId",
+                  "value": "{{officialId}}"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Open MiniApp",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"appId\": \"{{miniAppId}}\",\n  \"path\": \"/pages/index/index\",\n  \"scene\": \"chat\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/miniapp/open",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "miniapp",
+                "open"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Notice List",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/notice/list",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "notice",
+                "list"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Submit Feedback",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"demo feedback from postman collection\",\n  \"images\": [],\n  \"contact\": \"demo@local\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/feedback/create",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "feedback",
+                "create"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Upload Policy",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bizType\": \"moment\",\n  \"fileName\": \"demo.png\",\n  \"contentType\": \"image/png\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/media/upload/policy",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "media",
+                "upload",
+                "policy"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080/api"
+    },
+    {
+      "key": "accessToken",
+      "value": ""
+    },
+    {
+      "key": "refreshToken",
+      "value": ""
+    }
+  ]
+}

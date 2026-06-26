@@ -1,0 +1,379 @@
+import { createHotContext as __vite__createHotContext } from "/@vite/client";import.meta.hot = __vite__createHotContext("/pages-json-js");
+import {uni,upx2px,getCurrentPages,getApp,UniServiceJSBridge,UniViewJSBridge} from "/node_modules/@dcloudio/uni-h5/dist/uni-h5.es.js"
+window.getApp = getApp
+window.getCurrentPages = getCurrentPages
+window.wx = uni
+window.uni = uni
+window.UniViewJSBridge = UniViewJSBridge
+window.UniServiceJSBridge = UniServiceJSBridge
+window.rpx2px = upx2px
+window.__setupPage = (com)=>setupPage(com)
+
+import { defineAsyncComponent, resolveComponent, createVNode, withCtx, openBlock, createBlock } from "/node_modules/@dcloudio/uni-h5-vue/dist/vue.runtime.esm.js?v=db8d8ab5"
+import { PageComponent, useI18n, setupWindow, setupPage } from "/node_modules/@dcloudio/uni-h5/dist/uni-h5.es.js"
+import { appId, appName, appVersion, appVersionCode, debug, networkTimeout, router, async, sdkConfigs, qqMapKey, googleMapKey, aMapKey, bMapKey, aMapSecurityJsCode, aMapServiceHost, nvue, locale, fallbackLocale, darkmode, themeConfig } from "/manifest-json-js"
+const locales = /* #__PURE__ */ Object.assign({})
+
+const extend = Object.assign
+import "/node_modules/@dcloudio/uni-h5/style/framework/base.css"
+import "/node_modules/@dcloudio/uni-h5/style/framework/async.css"
+import "/node_modules/@dcloudio/uni-h5/style/framework/pageHead.css"
+import "/node_modules/@dcloudio/uni-h5/style/framework/tabBar.css"
+import "/node_modules/@dcloudio/uni-h5/style/framework/nvue.css"
+import "/node_modules/@dcloudio/uni-components/style/input.css"
+import "/node_modules/@dcloudio/uni-h5/style/api/modal.css"
+import "/node_modules/@dcloudio/uni-h5/style/api/toast.css"
+import "/node_modules/@dcloudio/uni-h5/style/api/action-sheet.css"
+import "/node_modules/@dcloudio/uni-components/style/resize-sensor.css"
+import "/node_modules/@dcloudio/uni-components/style/swiper.css"
+import "/node_modules/@dcloudio/uni-components/style/swiper-item.css"
+import "/node_modules/@dcloudio/uni-components/style/movable-area.css"
+import "/node_modules/@dcloudio/uni-components/style/movable-view.css"
+import "/node_modules/@dcloudio/uni-h5/style/api/location-view.css"
+import "/node_modules/@dcloudio/uni-h5/style/api/location-picker.css"
+import "/node_modules/@dcloudio/uni-components/style/input.css"
+import "/node_modules/@dcloudio/uni-h5/style/map.css"
+import "/node_modules/@dcloudio/uni-components/style/scroll-view.css"
+
+  window.__uniConfig=extend({"easycom":{"autoscan":true,"custom":{"^chat-item$":"@/components/chat-item.vue","^contact-item$":"@/components/contact-item.vue","^quick-entry$":"@/components/quick-entry.vue"}},"globalStyle":{"backgroundColor":"#f3efe7","backgroundTextStyle":"light","navigationBar":{"type":"default","titleColor":"#000000"},"isNVue":false},"tabBar":{"position":"bottom","color":"#6c746f","selectedColor":"#0d5c52","borderStyle":"black","blurEffect":"none","fontSize":"10px","iconWidth":"24px","spacing":"3px","height":"50px","list":[{"pagePath":"pages/chat/index","text":"微信","iconPath":"/static/tab/chat.svg","selectedIconPath":"/static/tab/chat-active.svg"},{"pagePath":"pages/contacts/index","text":"通讯录","iconPath":"/static/tab/contacts.svg","selectedIconPath":"/static/tab/contacts-active.svg"},{"pagePath":"pages/discover/index","text":"发现","iconPath":"/static/tab/discover.svg","selectedIconPath":"/static/tab/discover-active.svg"},{"pagePath":"pages/me/index","text":"我","iconPath":"/static/tab/me.svg","selectedIconPath":"/static/tab/me-active.svg"}],"backgroundColor":"#f9f6f1","selectedIndex":0,"shown":true},"compilerVersion":"5.08"},{
+  appId,
+  appName,
+  appVersion,
+  appVersionCode,
+  async,
+  debug,
+  networkTimeout,
+  sdkConfigs,
+  qqMapKey,
+  bMapKey,
+  googleMapKey,
+  aMapKey,
+  aMapSecurityJsCode,
+  aMapServiceHost,
+  nvue,
+  locale,
+  fallbackLocale,
+  locales:Object.keys(locales).reduce((res,name)=>{const locale=name.replace(/\.\/locale\/(uni-app.)?(.*).json/,'$2');extend(res[locale]||(res[locale]={}),locales[name].default);return res},{}),
+  router,
+  darkmode,
+  themeConfig,
+})
+
+
+window.__uniLayout = window.__uniLayout || {}
+
+const AsyncComponentOptions = {
+      delay: async.delay,
+      timeout: async.timeout,
+      suspensible: async.suspensible
+    }
+    if(async.loading){
+      AsyncComponentOptions.loadingComponent = {
+        name:'SystemAsyncLoading',
+        render(){
+          return createVNode(resolveComponent(async.loading))
+        }
+      }
+    }
+    if(async.error){
+      AsyncComponentOptions.errorComponent = {
+        name:'SystemAsyncError',
+        props:['error'],
+        render(){
+          return createVNode(resolveComponent(async.error), { error: this.error })
+        }
+      }
+    }
+  const PagesAuthLoginLoader = ()=>import("/pages/auth/login.vue?t=1780300093359").then(com => setupPage(com.default || com, 'pages/auth/login.vue'))
+const PagesAuthLogin = defineAsyncComponent(extend({loader:PagesAuthLoginLoader},AsyncComponentOptions))
+const PagesChatIndexLoader = ()=>import("/pages/chat/index.vue?t=1780300093363").then(com => setupPage(com.default || com, 'pages/chat/index.vue'))
+const PagesChatIndex = defineAsyncComponent(extend({loader:PagesChatIndexLoader},AsyncComponentOptions))
+const PagesContactsIndexLoader = ()=>import("/pages/contacts/index.vue?t=1780300529158").then(com => setupPage(com.default || com, 'pages/contacts/index.vue'))
+const PagesContactsIndex = defineAsyncComponent(extend({loader:PagesContactsIndexLoader},AsyncComponentOptions))
+const PagesDiscoverIndexLoader = ()=>import("/pages/discover/index.vue?t=1780300529161").then(com => setupPage(com.default || com, 'pages/discover/index.vue'))
+const PagesDiscoverIndex = defineAsyncComponent(extend({loader:PagesDiscoverIndexLoader},AsyncComponentOptions))
+const PagesMeIndexLoader = ()=>import("/pages/me/index.vue?t=1780300529163").then(com => setupPage(com.default || com, 'pages/me/index.vue'))
+const PagesMeIndex = defineAsyncComponent(extend({loader:PagesMeIndexLoader},AsyncComponentOptions))
+const PagesConversationDetailLoader = ()=>import("/pages/conversation/detail.vue?t=1780299407767").then(com => setupPage(com.default || com, 'pages/conversation/detail.vue'))
+const PagesConversationDetail = defineAsyncComponent(extend({loader:PagesConversationDetailLoader},AsyncComponentOptions))
+const PagesConversationSettingsLoader = ()=>import("/pages/conversation/settings.vue?t=1780299407768").then(com => setupPage(com.default || com, 'pages/conversation/settings.vue'))
+const PagesConversationSettings = defineAsyncComponent(extend({loader:PagesConversationSettingsLoader},AsyncComponentOptions))
+const PagesMomentsIndexLoader = ()=>import("/pages/moments/index.vue?t=1780299407703").then(com => setupPage(com.default || com, 'pages/moments/index.vue'))
+const PagesMomentsIndex = defineAsyncComponent(extend({loader:PagesMomentsIndexLoader},AsyncComponentOptions))
+const PagesWalletIndexLoader = ()=>import("/pages/wallet/index.vue?t=1780299407956").then(com => setupPage(com.default || com, 'pages/wallet/index.vue'))
+const PagesWalletIndex = defineAsyncComponent(extend({loader:PagesWalletIndexLoader},AsyncComponentOptions))
+const PagesFeatureHubIndexLoader = ()=>import("/pages/feature-hub/index.vue").then(com => setupPage(com.default || com, 'pages/feature-hub/index.vue'))
+const PagesFeatureHubIndex = defineAsyncComponent(extend({loader:PagesFeatureHubIndexLoader},AsyncComponentOptions))
+const PagesContactsProfileLoader = ()=>import("/pages/contacts/profile.vue?t=1780299407715").then(com => setupPage(com.default || com, 'pages/contacts/profile.vue'))
+const PagesContactsProfile = defineAsyncComponent(extend({loader:PagesContactsProfileLoader},AsyncComponentOptions))
+const PagesMomentsPublishLoader = ()=>import("/pages/moments/publish.vue?t=1780299407785").then(com => setupPage(com.default || com, 'pages/moments/publish.vue'))
+const PagesMomentsPublish = defineAsyncComponent(extend({loader:PagesMomentsPublishLoader},AsyncComponentOptions))
+const PagesWalletTransferLoader = ()=>import("/pages/wallet/transfer.vue?t=1780299407962").then(com => setupPage(com.default || com, 'pages/wallet/transfer.vue'))
+const PagesWalletTransfer = defineAsyncComponent(extend({loader:PagesWalletTransferLoader},AsyncComponentOptions))
+const PagesWalletRedPacketLoader = ()=>import("/pages/wallet/red-packet.vue?t=1780299407960").then(com => setupPage(com.default || com, 'pages/wallet/red-packet.vue'))
+const PagesWalletRedPacket = defineAsyncComponent(extend({loader:PagesWalletRedPacketLoader},AsyncComponentOptions))
+const PagesWalletBillsLoader = ()=>import("/pages/wallet/bills.vue?t=1780299407897").then(com => setupPage(com.default || com, 'pages/wallet/bills.vue'))
+const PagesWalletBills = defineAsyncComponent(extend({loader:PagesWalletBillsLoader},AsyncComponentOptions))
+const PagesOfficialDetailLoader = ()=>import("/pages/official/detail.vue?t=1780299407788").then(com => setupPage(com.default || com, 'pages/official/detail.vue'))
+const PagesOfficialDetail = defineAsyncComponent(extend({loader:PagesOfficialDetailLoader},AsyncComponentOptions))
+const PagesOfficialListLoader = ()=>import("/pages/official/list.vue?t=1780299407830").then(com => setupPage(com.default || com, 'pages/official/list.vue'))
+const PagesOfficialList = defineAsyncComponent(extend({loader:PagesOfficialListLoader},AsyncComponentOptions))
+const PagesMiniappOpenLoader = ()=>import("/pages/miniapp/open.vue?t=1780299407780").then(com => setupPage(com.default || com, 'pages/miniapp/open.vue'))
+const PagesMiniappOpen = defineAsyncComponent(extend({loader:PagesMiniappOpenLoader},AsyncComponentOptions))
+const PagesOfficialHistoryLoader = ()=>import("/pages/official/history.vue?t=1780299407790").then(com => setupPage(com.default || com, 'pages/official/history.vue'))
+const PagesOfficialHistory = defineAsyncComponent(extend({loader:PagesOfficialHistoryLoader},AsyncComponentOptions))
+const PagesOfficialArticleLoader = ()=>import("/pages/official/article.vue?t=1780299407711").then(com => setupPage(com.default || com, 'pages/official/article.vue'))
+const PagesOfficialArticle = defineAsyncComponent(extend({loader:PagesOfficialArticleLoader},AsyncComponentOptions))
+const PagesMiniappRecentLoader = ()=>import("/pages/miniapp/recent.vue?t=1780299407783").then(com => setupPage(com.default || com, 'pages/miniapp/recent.vue'))
+const PagesMiniappRecent = defineAsyncComponent(extend({loader:PagesMiniappRecentLoader},AsyncComponentOptions))
+const PagesMiniappFavoritesLoader = ()=>import("/pages/miniapp/favorites.vue?t=1780299407680").then(com => setupPage(com.default || com, 'pages/miniapp/favorites.vue'))
+const PagesMiniappFavorites = defineAsyncComponent(extend({loader:PagesMiniappFavoritesLoader},AsyncComponentOptions))
+const PagesSearchIndexLoader = ()=>import("/pages/search/index.vue?t=1780299407940").then(com => setupPage(com.default || com, 'pages/search/index.vue'))
+const PagesSearchIndex = defineAsyncComponent(extend({loader:PagesSearchIndexLoader},AsyncComponentOptions))
+const PagesScanIndexLoader = ()=>import("/pages/scan/index.vue?t=1780299407938").then(com => setupPage(com.default || com, 'pages/scan/index.vue'))
+const PagesScanIndex = defineAsyncComponent(extend({loader:PagesScanIndexLoader},AsyncComponentOptions))
+const PagesNoticeIndexLoader = ()=>import("/pages/notice/index.vue?t=1780299407706").then(com => setupPage(com.default || com, 'pages/notice/index.vue'))
+const PagesNoticeIndex = defineAsyncComponent(extend({loader:PagesNoticeIndexLoader},AsyncComponentOptions))
+const PagesSettingsDevicesLoader = ()=>import("/pages/settings/devices.vue?t=1780299407943").then(com => setupPage(com.default || com, 'pages/settings/devices.vue'))
+const PagesSettingsDevices = defineAsyncComponent(extend({loader:PagesSettingsDevicesLoader},AsyncComponentOptions))
+const PagesSettingsIndexLoader = ()=>import("/pages/settings/index.vue?t=1780299407945").then(com => setupPage(com.default || com, 'pages/settings/index.vue'))
+const PagesSettingsIndex = defineAsyncComponent(extend({loader:PagesSettingsIndexLoader},AsyncComponentOptions))
+const PagesSettingsNotificationsLoader = ()=>import("/pages/settings/notifications.vue?t=1780299407948").then(com => setupPage(com.default || com, 'pages/settings/notifications.vue'))
+const PagesSettingsNotifications = defineAsyncComponent(extend({loader:PagesSettingsNotificationsLoader},AsyncComponentOptions))
+const PagesSettingsPrivacyLoader = ()=>import("/pages/settings/privacy.vue?t=1780299407953").then(com => setupPage(com.default || com, 'pages/settings/privacy.vue'))
+const PagesSettingsPrivacy = defineAsyncComponent(extend({loader:PagesSettingsPrivacyLoader},AsyncComponentOptions))
+const PagesProfileEditLoader = ()=>import("/pages/profile/edit.vue?t=1780299407904").then(com => setupPage(com.default || com, 'pages/profile/edit.vue'))
+const PagesProfileEdit = defineAsyncComponent(extend({loader:PagesProfileEditLoader},AsyncComponentOptions))
+const PagesProfileQrcodeLoader = ()=>import("/pages/profile/qrcode.vue?t=1780299407910").then(com => setupPage(com.default || com, 'pages/profile/qrcode.vue'))
+const PagesProfileQrcode = defineAsyncComponent(extend({loader:PagesProfileQrcodeLoader},AsyncComponentOptions))
+const PagesProfileStatusLoader = ()=>import("/pages/profile/status.vue?t=1780299407912").then(com => setupPage(com.default || com, 'pages/profile/status.vue'))
+const PagesProfileStatus = defineAsyncComponent(extend({loader:PagesProfileStatusLoader},AsyncComponentOptions))
+const PagesContactsAddFriendLoader = ()=>import("/pages/contacts/add-friend.vue?t=1780299407517").then(com => setupPage(com.default || com, 'pages/contacts/add-friend.vue'))
+const PagesContactsAddFriend = defineAsyncComponent(extend({loader:PagesContactsAddFriendLoader},AsyncComponentOptions))
+const PagesContactsNewFriendLoader = ()=>import("/pages/contacts/new-friend.vue?t=1780299407565").then(com => setupPage(com.default || com, 'pages/contacts/new-friend.vue'))
+const PagesContactsNewFriend = defineAsyncComponent(extend({loader:PagesContactsNewFriendLoader},AsyncComponentOptions))
+const PagesGroupListLoader = ()=>import("/pages/group/list.vue?t=1780299407777").then(com => setupPage(com.default || com, 'pages/group/list.vue'))
+const PagesGroupList = defineAsyncComponent(extend({loader:PagesGroupListLoader},AsyncComponentOptions))
+const PagesGroupDetailLoader = ()=>import("/pages/group/detail.vue?t=1780299407773").then(com => setupPage(com.default || com, 'pages/group/detail.vue'))
+const PagesGroupDetail = defineAsyncComponent(extend({loader:PagesGroupDetailLoader},AsyncComponentOptions))
+const PagesGroupCreateLoader = ()=>import("/pages/group/create.vue?t=1780299407772").then(com => setupPage(com.default || com, 'pages/group/create.vue'))
+const PagesGroupCreate = defineAsyncComponent(extend({loader:PagesGroupCreateLoader},AsyncComponentOptions))
+const PagesCollectionIndexLoader = ()=>import("/pages/collection/index.vue?t=1780299407437").then(com => setupPage(com.default || com, 'pages/collection/index.vue'))
+const PagesCollectionIndex = defineAsyncComponent(extend({loader:PagesCollectionIndexLoader},AsyncComponentOptions))
+const PagesCardsIndexLoader = ()=>import("/pages/cards/index.vue?t=1780299407430").then(com => setupPage(com.default || com, 'pages/cards/index.vue'))
+const PagesCardsIndex = defineAsyncComponent(extend({loader:PagesCardsIndexLoader},AsyncComponentOptions))
+const PagesEmojiStoreLoader = ()=>import("/pages/emoji/store.vue?t=1780299407770").then(com => setupPage(com.default || com, 'pages/emoji/store.vue'))
+const PagesEmojiStore = defineAsyncComponent(extend({loader:PagesEmojiStoreLoader},AsyncComponentOptions))
+
+function renderPage(component,props){
+  return (openBlock(), createBlock(PageComponent, null, {page: withCtx(() => [createVNode(component, extend({},props,{ref: "page"}), null, 512 /* NEED_PATCH */)]), _: 1 /* STABLE */}))
+}
+window.__uniRoutes=[{
+  path:'/',
+  alias:'/pages/auth/login',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesAuthLogin,query)}},
+  loader: PagesAuthLoginLoader,
+  meta: {"isQuit":true,"isEntry":true,"navigationBar":{"style":"custom","type":"default"},"isNVue":false}
+},{
+  path:'/pages/chat/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesChatIndex,query)}},
+  loader: PagesChatIndexLoader,
+  meta: {"isQuit":true,"isTabBar":true,"tabBarIndex":0,"navigationBar":{"style":"custom","type":"default"},"isNVue":false}
+},{
+  path:'/pages/contacts/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesContactsIndex,query)}},
+  loader: PagesContactsIndexLoader,
+  meta: {"isQuit":true,"isTabBar":true,"tabBarIndex":1,"navigationBar":{"titleText":"通讯录","type":"default"},"isNVue":false}
+},{
+  path:'/pages/discover/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesDiscoverIndex,query)}},
+  loader: PagesDiscoverIndexLoader,
+  meta: {"isQuit":true,"isTabBar":true,"tabBarIndex":2,"navigationBar":{"titleText":"发现","type":"default"},"isNVue":false}
+},{
+  path:'/pages/me/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesMeIndex,query)}},
+  loader: PagesMeIndexLoader,
+  meta: {"isQuit":true,"isTabBar":true,"tabBarIndex":3,"navigationBar":{"titleText":"我","type":"default"},"isNVue":false}
+},{
+  path:'/pages/conversation/detail',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesConversationDetail,query)}},
+  loader: PagesConversationDetailLoader,
+  meta: {"navigationBar":{"titleText":"聊天","type":"default"},"isNVue":false}
+},{
+  path:'/pages/conversation/settings',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesConversationSettings,query)}},
+  loader: PagesConversationSettingsLoader,
+  meta: {"navigationBar":{"titleText":"聊天设置","type":"default"},"isNVue":false}
+},{
+  path:'/pages/moments/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesMomentsIndex,query)}},
+  loader: PagesMomentsIndexLoader,
+  meta: {"navigationBar":{"titleText":"朋友圈","type":"default"},"isNVue":false}
+},{
+  path:'/pages/wallet/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesWalletIndex,query)}},
+  loader: PagesWalletIndexLoader,
+  meta: {"navigationBar":{"titleText":"服务与钱包","type":"default"},"isNVue":false}
+},{
+  path:'/pages/feature-hub/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesFeatureHubIndex,query)}},
+  loader: PagesFeatureHubIndexLoader,
+  meta: {"navigationBar":{"titleText":"功能中心","type":"default"},"isNVue":false}
+},{
+  path:'/pages/contacts/profile',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesContactsProfile,query)}},
+  loader: PagesContactsProfileLoader,
+  meta: {"navigationBar":{"titleText":"联系人资料","type":"default"},"isNVue":false}
+},{
+  path:'/pages/moments/publish',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesMomentsPublish,query)}},
+  loader: PagesMomentsPublishLoader,
+  meta: {"navigationBar":{"titleText":"发布朋友圈","type":"default"},"isNVue":false}
+},{
+  path:'/pages/wallet/transfer',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesWalletTransfer,query)}},
+  loader: PagesWalletTransferLoader,
+  meta: {"navigationBar":{"titleText":"转账","type":"default"},"isNVue":false}
+},{
+  path:'/pages/wallet/red-packet',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesWalletRedPacket,query)}},
+  loader: PagesWalletRedPacketLoader,
+  meta: {"navigationBar":{"titleText":"红包","type":"default"},"isNVue":false}
+},{
+  path:'/pages/wallet/bills',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesWalletBills,query)}},
+  loader: PagesWalletBillsLoader,
+  meta: {"navigationBar":{"titleText":"账单明细","type":"default"},"isNVue":false}
+},{
+  path:'/pages/official/detail',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesOfficialDetail,query)}},
+  loader: PagesOfficialDetailLoader,
+  meta: {"navigationBar":{"titleText":"公众号详情","type":"default"},"isNVue":false}
+},{
+  path:'/pages/official/list',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesOfficialList,query)}},
+  loader: PagesOfficialListLoader,
+  meta: {"navigationBar":{"titleText":"公众号列表","type":"default"},"isNVue":false}
+},{
+  path:'/pages/miniapp/open',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesMiniappOpen,query)}},
+  loader: PagesMiniappOpenLoader,
+  meta: {"navigationBar":{"titleText":"小程序","type":"default"},"isNVue":false}
+},{
+  path:'/pages/official/history',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesOfficialHistory,query)}},
+  loader: PagesOfficialHistoryLoader,
+  meta: {"navigationBar":{"titleText":"历史消息","type":"default"},"isNVue":false}
+},{
+  path:'/pages/official/article',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesOfficialArticle,query)}},
+  loader: PagesOfficialArticleLoader,
+  meta: {"navigationBar":{"titleText":"公众号文章","type":"default"},"isNVue":false}
+},{
+  path:'/pages/miniapp/recent',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesMiniappRecent,query)}},
+  loader: PagesMiniappRecentLoader,
+  meta: {"navigationBar":{"titleText":"最近使用的小程序","type":"default"},"isNVue":false}
+},{
+  path:'/pages/miniapp/favorites',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesMiniappFavorites,query)}},
+  loader: PagesMiniappFavoritesLoader,
+  meta: {"navigationBar":{"titleText":"收藏的小程序","type":"default"},"isNVue":false}
+},{
+  path:'/pages/search/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesSearchIndex,query)}},
+  loader: PagesSearchIndexLoader,
+  meta: {"navigationBar":{"titleText":"搜一搜","type":"default"},"isNVue":false}
+},{
+  path:'/pages/scan/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesScanIndex,query)}},
+  loader: PagesScanIndexLoader,
+  meta: {"navigationBar":{"titleText":"扫一扫","type":"default"},"isNVue":false}
+},{
+  path:'/pages/notice/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesNoticeIndex,query)}},
+  loader: PagesNoticeIndexLoader,
+  meta: {"navigationBar":{"titleText":"通知中心","type":"default"},"isNVue":false}
+},{
+  path:'/pages/settings/devices',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesSettingsDevices,query)}},
+  loader: PagesSettingsDevicesLoader,
+  meta: {"navigationBar":{"titleText":"设备管理","type":"default"},"isNVue":false}
+},{
+  path:'/pages/settings/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesSettingsIndex,query)}},
+  loader: PagesSettingsIndexLoader,
+  meta: {"navigationBar":{"titleText":"设置","type":"default"},"isNVue":false}
+},{
+  path:'/pages/settings/notifications',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesSettingsNotifications,query)}},
+  loader: PagesSettingsNotificationsLoader,
+  meta: {"navigationBar":{"titleText":"消息通知","type":"default"},"isNVue":false}
+},{
+  path:'/pages/settings/privacy',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesSettingsPrivacy,query)}},
+  loader: PagesSettingsPrivacyLoader,
+  meta: {"navigationBar":{"titleText":"隐私设置","type":"default"},"isNVue":false}
+},{
+  path:'/pages/profile/edit',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesProfileEdit,query)}},
+  loader: PagesProfileEditLoader,
+  meta: {"navigationBar":{"titleText":"编辑资料","type":"default"},"isNVue":false}
+},{
+  path:'/pages/profile/qrcode',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesProfileQrcode,query)}},
+  loader: PagesProfileQrcodeLoader,
+  meta: {"navigationBar":{"titleText":"我的二维码","type":"default"},"isNVue":false}
+},{
+  path:'/pages/profile/status',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesProfileStatus,query)}},
+  loader: PagesProfileStatusLoader,
+  meta: {"navigationBar":{"titleText":"状态设置","type":"default"},"isNVue":false}
+},{
+  path:'/pages/contacts/add-friend',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesContactsAddFriend,query)}},
+  loader: PagesContactsAddFriendLoader,
+  meta: {"navigationBar":{"titleText":"添加朋友","type":"default"},"isNVue":false}
+},{
+  path:'/pages/contacts/new-friend',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesContactsNewFriend,query)}},
+  loader: PagesContactsNewFriendLoader,
+  meta: {"navigationBar":{"titleText":"新的朋友","type":"default"},"isNVue":false}
+},{
+  path:'/pages/group/list',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesGroupList,query)}},
+  loader: PagesGroupListLoader,
+  meta: {"navigationBar":{"titleText":"群聊","type":"default"},"isNVue":false}
+},{
+  path:'/pages/group/detail',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesGroupDetail,query)}},
+  loader: PagesGroupDetailLoader,
+  meta: {"navigationBar":{"titleText":"群详情","type":"default"},"isNVue":false}
+},{
+  path:'/pages/group/create',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesGroupCreate,query)}},
+  loader: PagesGroupCreateLoader,
+  meta: {"navigationBar":{"titleText":"发起群聊","type":"default"},"isNVue":false}
+},{
+  path:'/pages/collection/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesCollectionIndex,query)}},
+  loader: PagesCollectionIndexLoader,
+  meta: {"navigationBar":{"titleText":"收藏","type":"default"},"isNVue":false}
+},{
+  path:'/pages/cards/index',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesCardsIndex,query)}},
+  loader: PagesCardsIndexLoader,
+  meta: {"navigationBar":{"titleText":"卡包","type":"default"},"isNVue":false}
+},{
+  path:'/pages/emoji/store',
+  component:{setup(){ const app = getApp(); const query = app && app.$route && app.$route.query || {}; return ()=>renderPage(PagesEmojiStore,query)}},
+  loader: PagesEmojiStoreLoader,
+  meta: {"navigationBar":{"titleText":"表情商店","type":"default"},"isNVue":false}
+}].map(uniRoute=>(uniRoute.meta.route = (uniRoute.alias || uniRoute.path).slice(1),uniRoute))
+
+if(import.meta.hot){
+  import.meta.hot.on('invalidate', (data) => {
+      import.meta.hot.invalidate()
+  })
+}
+export {}

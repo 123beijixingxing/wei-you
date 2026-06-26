@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>微信关键业务链路原型</title>
+  <link rel="stylesheet" href="./assets/prototype.css">
+</head>
+<body data-view="flows">
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+  <div class="bg-orb orb-c"></div>
+  <div class="app-shell app-shell-wide">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Docs / UI交互设计</p>
+        <h1>微信 App 关键业务链路</h1>
+      </div>
+      <nav class="topnav">
+        <a href="./index.html">总览</a>
+        <a href="./all-pages.html">全部页面</a>
+        <a class="is-active" href="./flows.html">关键流程</a>
+      </nav>
+    </header>
+
+    <section class="hero-panel hero-panel-tight">
+      <div class="hero-copy">
+        <p class="eyebrow">Experience Blueprint</p>
+        <h2>从登录、加好友、聊天、朋友圈、公众号、小程序到钱包交易的完整体验链路。</h2>
+        <p>
+          这里整理了产品评审最常用的端到端主线，帮助研发、测试、设计统一对照页面入口、动作节点、
+          状态反馈和后续跳转。
+        </p>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Flow Library</p>
+          <h3>核心流程清单</h3>
+        </div>
+      </div>
+      <div class="flow-library" id="flow-library"></div>
+    </section>
+  </div>
+  <script src="./assets/prototype.js"></script>
+</body>
+</html>

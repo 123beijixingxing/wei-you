@@ -1,0 +1,16 @@
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\app\service\impl\WalletPersistenceServiceImpl.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\app\service\WalletIdempotencyGuard.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\app\service\WalletPersistenceService.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\controller\WalletController.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\domain\entity\RedPacketEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\domain\entity\RedPacketItemEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\domain\entity\RedPacketReceiveEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\domain\entity\WalletAccountEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\domain\entity\WalletBillEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\domain\entity\WalletTransactionEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\infra\persistence\mapper\RedPacketItemMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\infra\persistence\mapper\RedPacketMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\infra\persistence\mapper\RedPacketReceiveMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\infra\persistence\mapper\WalletAccountMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\infra\persistence\mapper\WalletBillMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-wallet\src\main\java\com\weiyou\wallet\infra\persistence\mapper\WalletTransactionMapper.java

@@ -1,0 +1,71 @@
+请注意运行模式下，因日志输出、sourcemap 以及未压缩源码等原因，性能和包体积，均不及发行模式。
+vite是按需编译，运行时点击某个未编译页面会先编译后加载，导致显示较慢，发行后无此问题。
+编译器版本：5.08（vue3）
+正在编译中...
+
+uni-app 有新版本发布，请执行 `npx @dcloudio/uvm@latest alpha` 更新，更新日志详见：https://download1.dcloud.net.cn/hbuilderx/changelog/5.11.2026052520-alpha.html
+[36m
+  vite v5.2.8[39m[32m dev server running at:
+[39m
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m19087[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.9.188:[1m19087[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.17.133.65:[1m19087[22m/[39m
+
+  [36mready in 5917ms.[39m
+
+DEPRECATION WARNING [legacy-js-api]: The legacy JS API is deprecated and will be removed in Dart Sass 2.0.0.
+
+More info: https://sass-lang.com/d/legacy-js-api
+
+DEPRECATION WARNING [import]: Sass @import rules are deprecated and will be removed in Dart Sass 3.0.0.
+
+More info and automated migrator: https://sass-lang.com/d/import
+
+   ╷
+41 │ @import "./uni.scss";
+   │         ^^^^^^^^^^^^
+   ╵
+    App.vue 41:9  root stylesheet
+
+[2m14:32:04[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmain.js[22m
+[2m14:32:17[22m [31m[1m[vite][22m[39m [35m[plugin:vite:import-analysis][39m [31mFailed to resolve import "./pages-json-js" from "main.js". Does the file exist?[39m
+at [36mmain.js:5:9[39m
+[33m  3  |  import App from "./App.vue";
+  4  |  
+  5  |  import "./pages-json-js";
+     |          ^
+  6  |  import { plugin as h5Plugin } from "@dcloudio/uni-h5";
+  7  |  [39m
+[2m14:32:18[22m [36m[1m[vite][22m[39m [32m✨ new dependencies optimized: [33m@dcloudio/uni-h5[32m[39m
+[2m14:35:10[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mmain.js[22m
+[2m14:35:26[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mindex.html[22m
+[2m14:35:44[22m [36m[1m[vite][22m[39m [32mvite.config.js changed, restarting server...[39m
+
+uni-app 有新版本发布，请执行 `npx @dcloudio/uvm@latest alpha` 更新，更新日志详见：https://download1.dcloud.net.cn/hbuilderx/changelog/5.11.2026052520-alpha.html
+
+欢迎将web站点部署到uniCloud前端网页托管平台，高速、免费、安全、省心，详见：https://uniapp.dcloud.io/uniCloud/hosting
+Re-optimizing dependencies because vite config has changed
+[31mError: ENOTEMPTY: directory not empty, rmdir 'C:\openCode-AI\wei-you\weiyou-app\weiyou-frontend\node_modules\.vite\deps'[39m
+[2m15:02:49[22m [36m[1m[vite][22m[39m [32mvite.config.js changed, restarting server...[39m
+
+uni-app 有新版本发布，请执行 `npx @dcloudio/uvm@latest alpha` 更新，更新日志详见：https://download1.dcloud.net.cn/hbuilderx/changelog/5.11.2026052520-alpha.html
+
+欢迎将web站点部署到uniCloud前端网页托管平台，高速、免费、安全、省心，详见：https://uniapp.dcloud.io/uniCloud/hosting
+[2m15:02:49[22m [36m[1m[vite][22m[39m server restarted.
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m19087[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.9.188:[1m19087[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://172.17.133.65:[1m19087[22m/[39m
+node:internal/child_process:502
+      throw errnoException(err, 'kill');
+      ^
+
+Error: kill ENOSYS
+    at ChildProcess.kill (node:internal/child_process:502:13)
+    at process.<anonymous> (C:\openCode-AI\wei-you\weiyou-app\weiyou-frontend\node_modules\cross-env\src\index.js:27:37)
+    at process.emit (node:events:517:28) {
+  errno: -4054,
+  code: 'ENOSYS',
+  syscall: 'kill'
+}
+
+Node.js v18.20.0

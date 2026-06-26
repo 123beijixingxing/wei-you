@@ -1,0 +1,3668 @@
+openapi: 3.0.3
+info:
+  title: 微友 App Backend API Draft
+  version: 0.1.0-draft
+  description: |
+    基于当前后端控制器、需求文档与已生成接口文档整理的 OpenAPI 3.0 草稿。
+    
+    说明：
+    - HTTP Base URL: `http://localhost:8080/api`
+    - WebSocket URL: `ws://localhost:8081/ws/chat`
+    - WebSocket 协议详情见 `docs/接口文档/微友App-后端接口文档.md`
+    - 当前部分接口仍为 demo/stub/no-op 实现，字段结构可用于联调，业务结果未必代表最终生产行为
+servers:
+  - url: http://localhost:8080/api
+    description: Local development server
+security:
+  - bearerAuth: []
+tags:
+  - name: Auth
+    description: 认证与账号
+  - name: User
+    description: 用户资料
+  - name: UserSetting
+    description: 用户设置
+  - name: Contact
+    description: 通讯录与好友
+  - name: Chat
+    description: 会话与消息
+  - name: Group
+    description: 群聊
+  - name: Collection
+    description: 收藏
+  - name: Card
+    description: 卡包
+  - name: Emoji
+    description: 表情商店
+  - name: Moment
+    description: 朋友圈
+  - name: Wallet
+    description: 钱包与支付
+  - name: Feature
+    description: 发现与功能中心
+  - name: Scan
+    description: 扫一扫
+  - name: App
+    description: App 启动配置
+  - name: Media
+    description: 媒体上传
+  - name: Search
+    description: 搜索
+  - name: Notice
+    description: 通知
+  - name: Official
+    description: 公众号
+  - name: MiniApp
+    description: 小程序
+  - name: Feedback
+    description: 反馈
+x-weiyou-websocket:
+  url: ws://localhost:8081/ws/chat
+  description: IM 实时消息 WebSocket 通道
+  auth:
+    query:
+      - token
+      - deviceId
+  docs:
+    - docs/接口文档/微友App-后端接口文档.md
+    - docs/接口文档/微友App-前端联调字段说明.md
+paths:
+  /auth/login/password:
+    post:
+      tags:
+        - Auth
+      summary: 密码登录
+      description: 匿名接口，标准密码登录。
+      security: []
+      operationId: authLoginPassword
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginPasswordRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLoginTokenData'
+  /auth/login/sms:
+    post:
+      tags:
+        - Auth
+      summary: 短信验证码登录
+      description: 匿名接口。当前 smsCode 未真正校验，手机号不存在时会自动注册。
+      security: []
+      operationId: authLoginSms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginSmsRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLoginTokenData'
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: 注册
+      description: 匿名接口。当前 smsCode 未真正校验；若手机号已存在则直接返回原账号登录态。
+      security: []
+      operationId: authRegister
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLoginTokenData'
+  /auth/sms/send:
+    post:
+      tags:
+        - Auth
+      summary: 发送短信验证码
+      description: 匿名接口。当前为 no-op 占位实现。
+      security: []
+      operationId: authSendSms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmsSendRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+  /auth/token/refresh:
+    post:
+      tags:
+        - Auth
+      summary: 刷新 token
+      description: 匿名接口。仅接受 refresh token。
+      security: []
+      operationId: authRefreshToken
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLoginTokenData'
+  /auth/logout:
+    post:
+      tags:
+        - Auth
+      summary: 退出登录
+      description: 按 deviceId 将目标设备下线。
+      operationId: authLogout
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceActionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+  /auth/device/list:
+    get:
+      tags:
+        - Auth
+      summary: 查询登录设备列表
+      description: 优先查库，若无设备数据则返回 demo 数据。
+      operationId: authDeviceList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseDeviceSessionList'
+  /auth/device/offline:
+    post:
+      tags:
+        - Auth
+      summary: 下线指定设备
+      description: 当前未校验设备归属。
+      operationId: authDeviceOffline
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceActionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+  /user/profile/me:
+    get:
+      tags:
+        - User
+      summary: 查询我的资料
+      operationId: userProfileMe
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseUserProfileData'
+  /user/profile/detail:
+    get:
+      tags:
+        - User
+      summary: 查询用户资料详情
+      description: userId 为空时查询当前登录用户。
+      operationId: userProfileDetail
+      parameters:
+        - in: query
+          name: userId
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseUserProfileData'
+  /user/profile/update:
+    post:
+      tags:
+        - User
+      summary: 更新资料
+      operationId: userProfileUpdate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+  /user/qrcode/get:
+    get:
+      tags:
+        - User
+      summary: 获取个人二维码
+      operationId: userQrcodeGet
+      parameters:
+        - in: query
+          name: dynamic
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseQrcodeData'
+  /user/status/update:
+    post:
+      tags:
+        - User
+      summary: 更新状态
+      description: expireAt 当前未实际落库。
+      operationId: userStatusUpdate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStatusRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+  /user/setting/detail:
+    get:
+      tags:
+        - UserSetting
+      summary: 查询用户设置
+      operationId: userSettingDetail
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseUserSettingData'
+  /user/setting/update:
+    post:
+      tags:
+        - UserSetting
+      summary: 更新用户设置
+      operationId: userSettingUpdate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserSettingRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseUserSettingData'
+  /contact/list:
+    get:
+      tags:
+        - Contact
+      summary: 查询通讯录列表
+      description: 当前主要返回 demo 数据。
+      operationId: contactList
+      parameters:
+        - in: query
+          name: keyword
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: letter
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageContactItemData'
+  /contact/friend/apply:
+    post:
+      tags:
+        - Contact
+      summary: 发起好友申请
+      description: 当前无持久化逻辑。
+      operationId: contactFriendApply
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FriendApplyRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+  /contact/friend/request/list:
+    get:
+      tags:
+        - Contact
+      summary: 查询好友申请列表
+      description: 当前主要返回 demo 数据。
+      operationId: contactFriendRequestList
+      parameters:
+        - in: query
+          name: status
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageFriendRequestItemData'
+  /contact/friend/request/handle:
+    post:
+      tags:
+        - Contact
+      summary: 处理好友申请
+      description: 当前无真实处理逻辑。
+      operationId: contactFriendRequestHandle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HandleFriendRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+  /chat/conversation/list:
+    get:
+      tags:
+        - Chat
+      summary: 查询会话列表
+      description: 优先查库，若无则返回 demo 数据；cursor 当前未实际参与分页。
+      operationId: chatConversationList
+      parameters:
+        - in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: pageSize
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageConversationItemData'
+  /chat/conversation/open-single:
+    post:
+      tags:
+        - Chat
+      summary: 打开单聊会话
+      operationId: chatConversationOpenSingle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenSingleConversationRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseConversationOpenResult'
+  /chat/conversation/detail:
+    get:
+      tags:
+        - Chat
+      summary: 查询会话设置
+      operationId: chatConversationDetail
+      parameters:
+        - in: query
+          name: conversationId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseConversationSettingData'
+  /chat/conversation/setting/update:
+    post:
+      tags:
+        - Chat
+      summary: 更新会话设置
+      operationId: chatConversationSettingUpdate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversationSettingRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseConversationSettingData'
+  /chat/conversation/clear:
+    post:
+      tags:
+        - Chat
+      summary: 清空聊天记录
+      operationId: chatConversationClear
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConversationClearRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseConversationSettingData'
+  /chat/message/history:
+    get:
+      tags:
+        - Chat
+      summary: 查询聊天记录
+      description: content 在查库场景可能包装为 raw JSON 字符串对象；cursor 当前未实际参与分页。
+      operationId: chatMessageHistory
+      parameters:
+        - in: query
+          name: conversationId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: pageSize
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageMessageItemData'
+  /chat/message/search:
+    get:
+      tags:
+        - Chat
+      summary: 搜索会话消息
+      operationId: chatMessageSearch
+      parameters:
+        - in: query
+          name: conversationId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: keyword
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: pageSize
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageMessageItemData'
+  /chat/message/send:
+    post:
+      tags:
+        - Chat
+      summary: 发送消息
+      description: 会话不存在时自动创建单聊会话。
+      operationId: chatMessageSend
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMessageSendResult'
+  /chat/message/read:
+    post:
+      tags:
+        - Chat
+      summary: 标记已读
+      operationId: chatMessageRead
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageReadRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+  /chat/message/revoke:
+    post:
+      tags:
+        - Chat
+      summary: 撤回消息
+      operationId: chatMessageRevoke
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageRevokeRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMessageRevokeResult'
+  /group/create:
+    post:
+      tags:
+        - Group
+      summary: 创建群聊
+      description: 当前 groupId 为示例生成值。
+      operationId: groupCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetailData'
+  /group/detail:
+    get:
+      tags:
+        - Group
+      summary: 查询群详情
+      description: 当前返回 demo 群详情。
+      operationId: groupDetail
+      parameters:
+        - in: query
+          name: groupId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetailData'
+  /group/member/invite:
+    post:
+      tags:
+        - Group
+      summary: 邀请成员入群
+      description: 会更新群成员数量与成员列表。
+      operationId: groupMemberInvite
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteMemberRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetailData'
+  /group/member/list:
+    get:
+      tags:
+        - Group
+      summary: 查询群成员列表
+      operationId: groupMemberList
+      parameters:
+        - in: query
+          name: groupId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupMemberDataList'
+  /group/notice/update:
+    post:
+      tags:
+        - Group
+      summary: 更新群公告
+      operationId: groupNoticeUpdate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupNoticeRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetailData'
+  /group/setting/update:
+    post:
+      tags:
+        - Group
+      summary: 更新群设置
+      operationId: groupSettingUpdate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupSettingRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetailData'
+  /group/admin/update:
+    post:
+      tags:
+        - Group
+      summary: 设置管理员
+      operationId: groupAdminUpdate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupAdminRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetailData'
+  /group/member/mute:
+    post:
+      tags:
+        - Group
+      summary: 单独禁言成员
+      operationId: groupMemberMute
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupMemberMuteRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetailData'
+  /group/member/nickname/update:
+    post:
+      tags:
+        - Group
+      summary: 更新群昵称
+      operationId: groupMemberNicknameUpdate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateGroupNicknameRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetailData'
+  /group/member/remove:
+    post:
+      tags:
+        - Group
+      summary: 移除群成员
+      operationId: groupMemberRemove
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveGroupMemberRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetailData'
+  /group/owner/transfer:
+    post:
+      tags:
+        - Group
+      summary: 转让群主
+      operationId: groupOwnerTransfer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferGroupOwnerRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetailData'
+  /group/leave:
+    post:
+      tags:
+        - Group
+      summary: 退出群聊
+      operationId: groupLeave
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveGroupRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupLeaveResult'
+  /moment/timeline:
+    get:
+      tags:
+        - Moment
+      summary: 查询朋友圈时间线
+      description: 当前主要返回 demo 数据；cursor 未实际使用。
+      operationId: momentTimeline
+      parameters:
+        - in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: pageSize
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageMomentItemData'
+  /collection/list:
+    get:
+      tags:
+        - Collection
+      summary: 查询收藏列表
+      operationId: collectionList
+      parameters:
+        - in: query
+          name: type
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: keyword
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: pageNo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageCollectionItemData'
+  /collection/create:
+    post:
+      tags:
+        - Collection
+      summary: 创建收藏
+      operationId: collectionCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionCreateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCollectionItem'
+  /collection/delete:
+    post:
+      tags:
+        - Collection
+      summary: 删除收藏
+      operationId: collectionDelete
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionDeleteRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCollectionItemList'
+  /card/list:
+    get:
+      tags:
+        - Card
+      summary: 查询卡包列表
+      operationId: cardList
+      parameters:
+        - in: query
+          name: cardType
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCardItemList'
+  /card/use:
+    post:
+      tags:
+        - Card
+      summary: 使用卡券
+      operationId: cardUse
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CardActionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCardItem'
+  /emoji/store/list:
+    get:
+      tags:
+        - Emoji
+      summary: 查询表情商店列表
+      operationId: emojiStoreList
+      parameters:
+        - in: query
+          name: categoryId
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: pageNo
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseEmojiPackageItemList'
+  /emoji/package/download:
+    post:
+      tags:
+        - Emoji
+      summary: 下载表情包
+      operationId: emojiPackageDownload
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmojiPackageActionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseEmojiPackageItem'
+  /emoji/package/remove:
+    post:
+      tags:
+        - Emoji
+      summary: 卸载表情包
+      operationId: emojiPackageRemove
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmojiPackageActionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseEmojiPackageItem'
+  /emoji/package/activate:
+    post:
+      tags:
+        - Emoji
+      summary: 启用表情包
+      operationId: emojiPackageActivate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmojiPackageActionRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseEmojiPackageItemList'
+  /moment/create:
+    post:
+      tags:
+        - Moment
+      summary: 发布朋友圈
+      description: visibleScope 当前为预留字段，未实际生效。
+      operationId: momentCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMomentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMomentItem'
+  /moment/like:
+    post:
+      tags:
+        - Moment
+      summary: 点赞或取消点赞
+      description: 返回当前动态最新点赞数。
+      operationId: momentLike
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LikeMomentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLikeResult'
+  /moment/comment/create:
+    post:
+      tags:
+        - Moment
+      summary: 新增朋友圈评论
+      description: 支持回复指定评论。
+      operationId: momentCommentCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCommentResult'
+  /moment/comment/delete:
+    post:
+      tags:
+        - Moment
+      summary: 删除朋友圈评论
+      operationId: momentCommentDelete
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentDeleteRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseCommentDeleteResult'
+  /wallet/overview:
+    get:
+      tags:
+        - Wallet
+      summary: 查询钱包概览
+      description: 优先查库，若无则返回 demo 数据。
+      operationId: walletOverview
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseWalletOverview'
+  /wallet/bill/list:
+    get:
+      tags:
+        - Wallet
+      summary: 查询账单列表
+      description: type、startDate、endDate 当前未真正参与查询过滤。
+      operationId: walletBillList
+      parameters:
+        - in: query
+          name: type
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: pageNo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - in: query
+          name: startDate
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: endDate
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageBillItemData'
+  /wallet/transfer/create:
+    post:
+      tags:
+        - Wallet
+      summary: 创建转账
+      description: 不允许给自己转账；金额必须大于 0；余额必须充足。
+      operationId: walletTransferCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferCreateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseTransferResult'
+  /wallet/red-packet/create:
+    post:
+      tags:
+        - Wallet
+      summary: 创建红包
+      description: 红包总额必须大于等于红包个数。
+      operationId: walletRedPacketCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedPacketCreateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseRedPacketDetail'
+  /wallet/red-packet/open:
+    post:
+      tags:
+        - Wallet
+      summary: 打开红包
+      description: 重复领取直接返回原记录；过期、抢完或已结束时返回业务异常。
+      operationId: walletRedPacketOpen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedPacketOpenRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseRedPacketOpenResult'
+  /feature/discovery:
+    get:
+      tags:
+        - Feature
+      summary: 查询发现页能力
+      description: 当前返回 demo 数据。
+      operationId: featureDiscovery
+      parameters:
+        - in: query
+          name: cityCode
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseFeatureItemList'
+  /feature/workbench:
+    get:
+      tags:
+        - Feature
+      summary: 查询功能中心能力
+      description: 当前返回 demo 数据。
+      operationId: featureWorkbench
+      parameters:
+        - in: query
+          name: scene
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseFeatureItemList'
+  /scan/resolve:
+    post:
+      tags:
+        - Scan
+      summary: 解析扫码结果
+      description: 当前固定返回用户二维码解析结果。
+      operationId: scanResolve
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanResolveRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseScanResult'
+  /app/bootstrap:
+    get:
+      tags:
+        - App
+      summary: 查询启动配置
+      description: 匿名接口。
+      security: []
+      operationId: appBootstrap
+      parameters:
+        - in: query
+          name: clientType
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: version
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBootstrapData'
+  /media/upload/policy:
+    post:
+      tags:
+        - Media
+      summary: 获取上传策略
+      description: 当前仅生成对象存储 key，不直接完成文件上传。
+      operationId: mediaUploadPolicy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadPolicyRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseUploadPolicyData'
+  /media/upload/local:
+    post:
+      tags:
+        - Media
+      summary: 本地文件上传
+      description: 通过 multipart/form-data 上传本地文件，返回可访问 URL。
+      operationId: mediaUploadLocal
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - file
+              properties:
+                file:
+                  type: string
+                  format: binary
+                bizType:
+                  type: string
+                  default: moment
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLocalUploadData'
+  /search/suggest:
+    get:
+      tags:
+        - Search
+      summary: 搜索联想词
+      description: 当前返回 demo 联想结果。
+      operationId: searchSuggest
+      parameters:
+        - in: query
+          name: keyword
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: bizType
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseStringList'
+  /search/global:
+    get:
+      tags:
+        - Search
+      summary: 全局搜索
+      description: 当前返回 demo 搜索结果。
+      operationId: searchGlobal
+      parameters:
+        - in: query
+          name: keyword
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: bizType
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: pageNo
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageSearchItemData'
+  /notice/list:
+    get:
+      tags:
+        - Notice
+      summary: 查询通知列表
+      description: 当前返回 demo 数据；cursor 未实际参与分页。
+      operationId: noticeList
+      parameters:
+        - in: query
+          name: type
+          required: false
+          schema:
+            type: string
+        - in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageNoticeItemData'
+  /notice/read:
+    post:
+      tags:
+        - Notice
+      summary: 标记通知已读
+      operationId: noticeRead
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NoticeReadRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseNoticeReadResult'
+  /official/account/list:
+    get:
+      tags:
+        - Official
+      summary: 查询公众号列表
+      operationId: officialAccountList
+      parameters:
+        - in: query
+          name: keyword
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfficialAccountDetailList'
+  /official/account/detail:
+    get:
+      tags:
+        - Official
+      summary: 查询公众号详情
+      description: 当前返回 demo 数据。
+      operationId: officialAccountDetail
+      parameters:
+        - in: query
+          name: officialId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfficialAccountDetail'
+  /official/article/history:
+    get:
+      tags:
+        - Official
+      summary: 查询公众号历史文章
+      operationId: officialArticleHistory
+      parameters:
+        - in: query
+          name: officialId
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - in: query
+          name: cursor
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponsePageArticleItemData'
+  /official/article/detail:
+    get:
+      tags:
+        - Official
+      summary: 查询公众号文章详情
+      operationId: officialArticleDetail
+      parameters:
+        - in: query
+          name: articleId
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseArticleDetail'
+  /official/article/like:
+    post:
+      tags:
+        - Official
+      summary: 点赞公众号文章
+      operationId: officialArticleLike
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ArticleLikeRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseArticleLikeResult'
+  /official/account/follow:
+    post:
+      tags:
+        - Official
+      summary: 关注或取消关注公众号
+      operationId: officialAccountFollow
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OfficialFollowRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfficialFollowResult'
+  /miniapp/recent/list:
+    get:
+      tags:
+        - MiniApp
+      summary: 查询最近使用小程序
+      operationId: miniappRecentList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMiniAppRecentItemList'
+  /miniapp/favorite/list:
+    get:
+      tags:
+        - MiniApp
+      summary: 查询收藏小程序
+      operationId: miniappFavoriteList
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMiniAppRecentItemList'
+  /miniapp/open:
+    post:
+      tags:
+        - MiniApp
+      summary: 打开小程序
+      description: path 为空时默认 `/pages/index/index`。
+      operationId: miniappOpen
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MiniAppOpenRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMiniAppSession'
+  /miniapp/recent/remove:
+    post:
+      tags:
+        - MiniApp
+      summary: 移除最近使用小程序
+      operationId: miniappRecentRemove
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MiniAppRecentRemoveRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMiniAppRecentItemList'
+  /miniapp/favorite/toggle:
+    post:
+      tags:
+        - MiniApp
+      summary: 收藏或取消收藏小程序
+      operationId: miniappFavoriteToggle
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MiniAppFavoriteRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMiniAppFavoriteResult'
+  /feedback/create:
+    post:
+      tags:
+        - Feedback
+      summary: 提交反馈
+      description: 当前为 no-op 占位实现。
+      operationId: feedbackCreate
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackCreateRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    ApiResponseBase:
+      type: object
+      required:
+        - code
+        - message
+        - traceId
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 0
+        message:
+          type: string
+          example: ok
+        traceId:
+          type: string
+          example: 3f4b9d6e8a2c4f1b
+    ErrorResponse:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              nullable: true
+    PageDataBase:
+      type: object
+      required:
+        - pageNo
+        - pageSize
+        - total
+        - hasMore
+      properties:
+        pageNo:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+          nullable: true
+    FlexibleMap:
+      type: object
+      additionalProperties: true
+    ApiResponseVoid:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              nullable: true
+    LoginPasswordRequest:
+      type: object
+      required:
+        - mobile
+        - password
+        - deviceId
+      properties:
+        mobile:
+          type: string
+        password:
+          type: string
+        deviceId:
+          type: string
+    LoginSmsRequest:
+      type: object
+      required:
+        - mobile
+        - smsCode
+        - deviceId
+      properties:
+        mobile:
+          type: string
+        smsCode:
+          type: string
+        deviceId:
+          type: string
+    RegisterRequest:
+      type: object
+      required:
+        - mobile
+        - smsCode
+        - password
+      properties:
+        mobile:
+          type: string
+        smsCode:
+          type: string
+        password:
+          type: string
+        deviceId:
+          type: string
+          nullable: true
+    SmsSendRequest:
+      type: object
+      required:
+        - mobile
+        - scene
+      properties:
+        mobile:
+          type: string
+        scene:
+          type: string
+    RefreshTokenRequest:
+      type: object
+      required:
+        - refreshToken
+      properties:
+        refreshToken:
+          type: string
+    DeviceActionRequest:
+      type: object
+      required:
+        - deviceId
+      properties:
+        deviceId:
+          type: string
+    LoginTokenData:
+      type: object
+      required:
+        - userId
+        - accessToken
+        - refreshToken
+        - expireIn
+        - needDeviceVerify
+      properties:
+        userId:
+          type: integer
+          format: int64
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expireIn:
+          type: integer
+          format: int32
+        needDeviceVerify:
+          type: boolean
+    DeviceSession:
+      type: object
+      properties:
+        deviceId:
+          type: string
+        deviceType:
+          type: string
+        deviceModel:
+          type: string
+        systemVersion:
+          type: string
+        loginCity:
+          type: string
+        loginIp:
+          type: string
+        lastLoginAt:
+          type: string
+        online:
+          type: boolean
+    UserProfileData:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        weiyouNo:
+          type: string
+        nickname:
+          type: string
+        avatar:
+          type: string
+        gender:
+          type: integer
+          format: int32
+        city:
+          type: string
+        signature:
+          type: string
+        statusText:
+          type: string
+        qrcodeUrl:
+          type: string
+    UpdateProfileRequest:
+      type: object
+      properties:
+        nickname:
+          type: string
+        avatar:
+          type: string
+        gender:
+          type: integer
+          format: int32
+        city:
+          type: string
+        signature:
+          type: string
+    QrcodeData:
+      type: object
+      properties:
+        ticket:
+          type: string
+        qrcodeUrl:
+          type: string
+        dynamic:
+          type: boolean
+        expireAt:
+          type: string
+    UpdateStatusRequest:
+      type: object
+      required:
+        - statusCode
+      properties:
+        statusCode:
+          type: string
+        statusText:
+          type: string
+        expireAt:
+          type: string
+    UpdateUserSettingRequest:
+      type: object
+      properties:
+        messageNotification:
+          type: boolean
+        momentNotification:
+          type: boolean
+        officialNotification:
+          type: boolean
+        soundEnabled:
+          type: boolean
+        vibrationEnabled:
+          type: boolean
+        addByPhone:
+          type: boolean
+        addByWeiyouNo:
+          type: boolean
+        groupInviteConfirm:
+          type: boolean
+        hideMyMoments:
+          type: boolean
+        hideLocation:
+          type: boolean
+    UserSettingData:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        messageNotification:
+          type: boolean
+        momentNotification:
+          type: boolean
+        officialNotification:
+          type: boolean
+        soundEnabled:
+          type: boolean
+        vibrationEnabled:
+          type: boolean
+        addByPhone:
+          type: boolean
+        addByWeiyouNo:
+          type: boolean
+        groupInviteConfirm:
+          type: boolean
+        hideMyMoments:
+          type: boolean
+        hideLocation:
+          type: boolean
+    ContactItem:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        nickname:
+          type: string
+        remark:
+          type: string
+        avatar:
+          type: string
+        letter:
+          type: string
+        star:
+          type: boolean
+    FriendApplyRequest:
+      type: object
+      required:
+        - targetUserId
+      properties:
+        targetUserId:
+          type: integer
+          format: int64
+        remark:
+          type: string
+        source:
+          type: string
+    FriendRequestItem:
+      type: object
+      properties:
+        requestId:
+          type: integer
+          format: int64
+        fromUserId:
+          type: integer
+          format: int64
+        nickname:
+          type: string
+        avatar:
+          type: string
+        applyMessage:
+          type: string
+        status:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+    HandleFriendRequest:
+      type: object
+      required:
+        - requestId
+        - action
+      properties:
+        requestId:
+          type: integer
+          format: int64
+        action:
+          type: string
+    ConversationItem:
+      type: object
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+        conversationType:
+          type: integer
+          format: int32
+          enum:
+            - 1
+            - 2
+        title:
+          type: string
+        avatar:
+          type: string
+        unreadCount:
+          type: integer
+          format: int32
+        top:
+          type: boolean
+        mute:
+          type: boolean
+        lastMessageDigest:
+          type: string
+        lastMessageTime:
+          type: string
+          nullable: true
+    MessageItem:
+      type: object
+      properties:
+        messageId:
+          type: integer
+          format: int64
+        clientMsgId:
+          type: string
+        conversationId:
+          type: integer
+          format: int64
+        senderUserId:
+          type: integer
+          format: int64
+        msgType:
+          type: integer
+          format: int32
+          description: 当前明确使用 1 表示文本消息
+        replyMessageId:
+          type: integer
+          format: int64
+          nullable: true
+        content:
+          $ref: '#/components/schemas/FlexibleMap'
+        sendStatus:
+          type: integer
+          format: int32
+        sendTime:
+          type: string
+          nullable: true
+        readStatus:
+          type: integer
+          format: int32
+    SendMessageRequest:
+      type: object
+      required:
+        - conversationId
+        - msgType
+        - clientMsgId
+        - content
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+        msgType:
+          type: integer
+          format: int32
+        clientMsgId:
+          type: string
+        replyMessageId:
+          type: integer
+          format: int64
+          nullable: true
+        content:
+          $ref: '#/components/schemas/FlexibleMap'
+    OpenSingleConversationRequest:
+      type: object
+      required:
+        - targetUserId
+      properties:
+        targetUserId:
+          type: integer
+          format: int64
+    ConversationOpenResult:
+      type: object
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+        targetUserId:
+          type: integer
+          format: int64
+        conversationType:
+          type: integer
+          format: int32
+    ConversationSettingRequest:
+      type: object
+      required:
+        - conversationId
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+        top:
+          type: boolean
+        mute:
+          type: boolean
+        markUnread:
+          type: boolean
+    ConversationClearRequest:
+      type: object
+      required:
+        - conversationId
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+    ConversationSettingData:
+      type: object
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+        conversationType:
+          type: integer
+          format: int32
+        title:
+          type: string
+        avatar:
+          type: string
+        top:
+          type: boolean
+        mute:
+          type: boolean
+        markUnread:
+          type: boolean
+        unreadCount:
+          type: integer
+          format: int32
+        clearBeforeTime:
+          type: string
+          nullable: true
+    MessageSendResult:
+      type: object
+      properties:
+        messageId:
+          type: integer
+          format: int64
+        clientMsgId:
+          type: string
+        sendStatus:
+          type: integer
+          format: int32
+        sendTime:
+          type: string
+    MessageRevokeResult:
+      type: object
+      properties:
+        messageId:
+          type: integer
+          format: int64
+        conversationId:
+          type: integer
+          format: int64
+        revoked:
+          type: boolean
+    MessageReadRequest:
+      type: object
+      required:
+        - conversationId
+        - messageId
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+        messageId:
+          type: integer
+          format: int64
+    MessageRevokeRequest:
+      type: object
+      required:
+        - conversationId
+        - messageId
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+        messageId:
+          type: integer
+          format: int64
+    CreateGroupRequest:
+      type: object
+      required:
+        - groupName
+        - memberIds
+      properties:
+        groupName:
+          type: string
+        memberIds:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+            format: int64
+    InviteMemberRequest:
+      type: object
+      required:
+        - groupId
+        - memberIds
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        memberIds:
+          type: array
+          minItems: 1
+          items:
+            type: integer
+            format: int64
+    UpdateGroupNoticeRequest:
+      type: object
+      required:
+        - groupId
+        - notice
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        notice:
+          type: string
+    UpdateGroupSettingRequest:
+      type: object
+      required:
+        - groupId
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        muteAll:
+          type: boolean
+        joinPolicy:
+          type: integer
+          format: int32
+    UpdateGroupAdminRequest:
+      type: object
+      required:
+        - groupId
+        - userId
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        admin:
+          type: boolean
+    UpdateGroupMemberMuteRequest:
+      type: object
+      required:
+        - groupId
+        - userId
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        muted:
+          type: boolean
+    UpdateGroupNicknameRequest:
+      type: object
+      required:
+        - groupId
+        - userId
+        - groupNickname
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        groupNickname:
+          type: string
+    RemoveGroupMemberRequest:
+      type: object
+      required:
+        - groupId
+        - userId
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+    TransferGroupOwnerRequest:
+      type: object
+      required:
+        - groupId
+        - targetUserId
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        targetUserId:
+          type: integer
+          format: int64
+    LeaveGroupRequest:
+      type: object
+      required:
+        - groupId
+      properties:
+        groupId:
+          type: integer
+          format: int64
+    GroupDetailData:
+      type: object
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        groupName:
+          type: string
+        groupAvatar:
+          type: string
+        ownerUserId:
+          type: integer
+          format: int64
+        memberCount:
+          type: integer
+          format: int32
+        muteAll:
+          type: boolean
+        joinPolicy:
+          type: integer
+          format: int32
+        notice:
+          type: string
+    GroupMemberData:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        nickname:
+          type: string
+        avatar:
+          type: string
+        role:
+          type: string
+        groupNickname:
+          type: string
+        owner:
+          type: boolean
+        admin:
+          type: boolean
+        muted:
+          type: boolean
+    GroupLeaveResult:
+      type: object
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        left:
+          type: boolean
+        newOwnerUserId:
+          type: integer
+          format: int64
+          nullable: true
+        deleted:
+          type: boolean
+    CollectionItem:
+      type: object
+      properties:
+        collectionId:
+          type: integer
+          format: int64
+        type:
+          type: string
+        title:
+          type: string
+        cover:
+          type: string
+          nullable: true
+        summary:
+          type: string
+        createdAt:
+          type: string
+    CollectionCreateRequest:
+      type: object
+      required:
+        - type
+        - title
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        cover:
+          type: string
+        summary:
+          type: string
+    CollectionDeleteRequest:
+      type: object
+      required:
+        - collectionId
+      properties:
+        collectionId:
+          type: integer
+          format: int64
+    CardItem:
+      type: object
+      properties:
+        cardId:
+          type: integer
+          format: int64
+        cardType:
+          type: string
+        title:
+          type: string
+        provider:
+          type: string
+        expireText:
+          type: string
+        status:
+          type: string
+    CardActionRequest:
+      type: object
+      required:
+        - cardId
+      properties:
+        cardId:
+          type: integer
+          format: int64
+    EmojiPackageItem:
+      type: object
+      properties:
+        packageId:
+          type: string
+        title:
+          type: string
+        summary:
+          type: string
+        downloaded:
+          type: boolean
+        active:
+          type: boolean
+    EmojiPackageActionRequest:
+      type: object
+      required:
+        - packageId
+      properties:
+        packageId:
+          type: string
+    MomentItem:
+      type: object
+      properties:
+        momentId:
+          type: integer
+          format: int64
+        authorUserId:
+          type: integer
+          format: int64
+        nickname:
+          type: string
+        avatar:
+          type: string
+        content:
+          type: string
+        mediaList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MomentMediaItem'
+        commentList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MomentCommentItem'
+        likeCount:
+          type: integer
+          format: int32
+        commentCount:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+    MomentMediaItem:
+      type: object
+      properties:
+        url:
+          type: string
+        coverUrl:
+          type: string
+    MomentCommentItem:
+      type: object
+      properties:
+        commentId:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        userName:
+          type: string
+        content:
+          type: string
+        replyCommentId:
+          type: integer
+          format: int64
+          nullable: true
+        replyUserId:
+          type: integer
+          format: int64
+          nullable: true
+        replyUserName:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+    CreateMomentRequest:
+      type: object
+      properties:
+        content:
+          type: string
+        mediaUrls:
+          type: array
+          items:
+            type: string
+        visibleScope:
+          type: string
+          description: 当前预留字段，未实际生效
+    LikeMomentRequest:
+      type: object
+      required:
+        - momentId
+        - action
+      properties:
+        momentId:
+          type: integer
+          format: int64
+        action:
+          type: string
+    LikeResult:
+      type: object
+      properties:
+        momentId:
+          type: integer
+          format: int64
+        action:
+          type: string
+        likeCount:
+          type: integer
+          format: int32
+    CommentRequest:
+      type: object
+      required:
+        - momentId
+        - content
+      properties:
+        momentId:
+          type: integer
+          format: int64
+        content:
+          type: string
+        replyCommentId:
+          type: integer
+          format: int64
+          nullable: true
+    CommentDeleteRequest:
+      type: object
+      required:
+        - momentId
+        - commentId
+      properties:
+        momentId:
+          type: integer
+          format: int64
+        commentId:
+          type: integer
+          format: int64
+    CommentResult:
+      type: object
+      properties:
+        momentId:
+          type: integer
+          format: int64
+        commentId:
+          type: integer
+          format: int64
+        content:
+          type: string
+        replyCommentId:
+          type: integer
+          format: int64
+          nullable: true
+        replyUserId:
+          type: integer
+          format: int64
+          nullable: true
+        commentCount:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+    CommentDeleteResult:
+      type: object
+      properties:
+        commentId:
+          type: integer
+          format: int64
+        momentId:
+          type: integer
+          format: int64
+        commentCount:
+          type: integer
+          format: int32
+    WalletOverview:
+      type: object
+      properties:
+        availableBalanceFen:
+          type: integer
+          format: int64
+        frozenBalanceFen:
+          type: integer
+          format: int64
+        realnameStatus:
+          type: integer
+          format: int32
+          enum:
+            - 0
+            - 1
+        payPasswordStatus:
+          type: integer
+          format: int32
+          enum:
+            - 0
+            - 1
+        bankCardCount:
+          type: integer
+          format: int32
+    BillItem:
+      type: object
+      properties:
+        billId:
+          type: integer
+          format: int64
+        transactionNo:
+          type: string
+        billType:
+          type: string
+        amountFen:
+          type: integer
+          format: int64
+        incomeExpenseType:
+          type: integer
+          format: int32
+          enum:
+            - 1
+            - 2
+        billTitle:
+          type: string
+        billTime:
+          type: string
+    TransferCreateRequest:
+      type: object
+      required:
+        - targetUserId
+        - amountFen
+      properties:
+        targetUserId:
+          type: integer
+          format: int64
+        amountFen:
+          type: integer
+          format: int64
+        remark:
+          type: string
+    TransferResult:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+          format: int64
+        transactionNo:
+          type: string
+        status:
+          type: integer
+          format: int32
+        amountFen:
+          type: integer
+          format: int64
+    RedPacketCreateRequest:
+      type: object
+      required:
+        - amountFen
+        - count
+        - type
+      properties:
+        amountFen:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        type:
+          type: integer
+          format: int32
+        greeting:
+          type: string
+        groupId:
+          type: integer
+          format: int64
+          nullable: true
+    RedPacketDetail:
+      type: object
+      properties:
+        redPacketId:
+          type: integer
+          format: int64
+        redPacketNo:
+          type: string
+        senderUserId:
+          type: integer
+          format: int64
+        packetType:
+          type: integer
+          format: int32
+        totalAmountFen:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        status:
+          type: integer
+          format: int32
+          enum:
+            - 0
+            - 1
+            - 2
+        expireAt:
+          type: string
+    RedPacketOpenRequest:
+      type: object
+      required:
+        - redPacketId
+      properties:
+        redPacketId:
+          type: integer
+          format: int64
+    RedPacketOpenResult:
+      type: object
+      properties:
+        redPacketNo:
+          type: string
+        receiverUserId:
+          type: integer
+          format: int64
+        receiveAmountFen:
+          type: integer
+          format: int64
+        rankNo:
+          type: integer
+          format: int32
+        status:
+          type: integer
+          format: int32
+    FeatureItem:
+      type: object
+      properties:
+        featureCode:
+          type: string
+        featureName:
+          type: string
+        iconUrl:
+          type: string
+        routePath:
+          type: string
+        enabled:
+          type: boolean
+    ScanResolveRequest:
+      type: object
+      required:
+        - scanCode
+      properties:
+        scanCode:
+          type: string
+        scene:
+          type: string
+    ScanResult:
+      type: object
+      properties:
+        scanType:
+          type: string
+        scanToken:
+          type: string
+        title:
+          type: string
+        actionType:
+          type: string
+        payload:
+          $ref: '#/components/schemas/FlexibleMap'
+    BootstrapData:
+      type: object
+      properties:
+        latestVersion:
+          type: string
+        forceUpgrade:
+          type: boolean
+        agreementVersion:
+          type: string
+        noticeText:
+          type: string
+    UploadPolicyRequest:
+      type: object
+      required:
+        - bizType
+        - fileName
+        - contentType
+      properties:
+        bizType:
+          type: string
+        fileName:
+          type: string
+        contentType:
+          type: string
+    UploadPolicyData:
+      type: object
+      properties:
+        uploadUrl:
+          type: string
+        storageKey:
+          type: string
+        method:
+          type: string
+        expireAt:
+          type: string
+    LocalUploadData:
+      type: object
+      properties:
+        mediaId:
+          type: integer
+          format: int64
+        bizType:
+          type: string
+        url:
+          type: string
+        coverUrl:
+          type: string
+        originName:
+          type: string
+        size:
+          type: integer
+          format: int64
+        uploadedAt:
+          type: string
+    SearchItem:
+      type: object
+      properties:
+        bizType:
+          type: string
+        bizId:
+          type: string
+        title:
+          type: string
+        subtitle:
+          type: string
+        cover:
+          type: string
+        routePath:
+          type: string
+    NoticeItem:
+      type: object
+      properties:
+        noticeId:
+          type: integer
+          format: int64
+        noticeType:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        readStatus:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+    NoticeReadRequest:
+      type: object
+      required:
+        - noticeId
+      properties:
+        noticeId:
+          type: integer
+          format: int64
+    NoticeReadResult:
+      type: object
+      properties:
+        noticeId:
+          type: integer
+          format: int64
+        readStatus:
+          type: integer
+          format: int32
+    OfficialAccountDetail:
+      type: object
+      properties:
+        officialId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        avatar:
+          type: string
+        intro:
+          type: string
+        verified:
+          type: boolean
+        followed:
+          type: boolean
+    ArticleItem:
+      type: object
+      properties:
+        articleId:
+          type: integer
+          format: int64
+        officialId:
+          type: integer
+          format: int64
+        title:
+          type: string
+        summary:
+          type: string
+        cover:
+          type: string
+        publishAt:
+          type: string
+        likeCount:
+          type: integer
+          format: int32
+    ArticleDetail:
+      type: object
+      properties:
+        articleId:
+          type: integer
+          format: int64
+        officialId:
+          type: integer
+          format: int64
+        title:
+          type: string
+        summary:
+          type: string
+        contentHtml:
+          type: string
+        cover:
+          type: string
+        publishAt:
+          type: string
+        likeCount:
+          type: integer
+          format: int32
+    ArticleLikeRequest:
+      type: object
+      required:
+        - articleId
+        - action
+      properties:
+        articleId:
+          type: integer
+          format: int64
+        action:
+          type: string
+    ArticleLikeResult:
+      type: object
+      properties:
+        articleId:
+          type: integer
+          format: int64
+        action:
+          type: string
+        likeCount:
+          type: integer
+          format: int32
+    OfficialFollowRequest:
+      type: object
+      required:
+        - officialId
+        - action
+      properties:
+        officialId:
+          type: integer
+          format: int64
+        action:
+          type: string
+    OfficialFollowResult:
+      type: object
+      properties:
+        officialId:
+          type: integer
+          format: int64
+        action:
+          type: string
+        followed:
+          type: boolean
+    MiniAppOpenRequest:
+      type: object
+      required:
+        - appId
+      properties:
+        appId:
+          type: string
+        path:
+          type: string
+          nullable: true
+        scene:
+          type: string
+          nullable: true
+    MiniAppSession:
+      type: object
+      properties:
+        appId:
+          type: string
+        appName:
+          type: string
+        sessionToken:
+          type: string
+        path:
+          type: string
+        expireAt:
+          type: string
+        favorite:
+          type: boolean
+    MiniAppRecentItem:
+      type: object
+      properties:
+        appId:
+          type: string
+        appName:
+          type: string
+        iconUrl:
+          type: string
+        path:
+          type: string
+        lastUsedAt:
+          type: string
+        favorite:
+          type: boolean
+    MiniAppRecentRemoveRequest:
+      type: object
+      required:
+        - appId
+      properties:
+        appId:
+          type: string
+    MiniAppFavoriteRequest:
+      type: object
+      required:
+        - appId
+        - action
+      properties:
+        appId:
+          type: string
+        action:
+          type: string
+    MiniAppFavoriteResult:
+      type: object
+      properties:
+        appId:
+          type: string
+        action:
+          type: string
+        favorite:
+          type: boolean
+    FeedbackCreateRequest:
+      type: object
+      required:
+        - content
+      properties:
+        content:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        contact:
+          type: string
+    PageContactItemData:
+      allOf:
+        - $ref: '#/components/schemas/PageDataBase'
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/ContactItem'
+    PageFriendRequestItemData:
+      allOf:
+        - $ref: '#/components/schemas/PageDataBase'
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/FriendRequestItem'
+    PageConversationItemData:
+      allOf:
+        - $ref: '#/components/schemas/PageDataBase'
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/ConversationItem'
+    PageMessageItemData:
+      allOf:
+        - $ref: '#/components/schemas/PageDataBase'
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/MessageItem'
+    PageMomentItemData:
+      allOf:
+        - $ref: '#/components/schemas/PageDataBase'
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/MomentItem'
+    PageBillItemData:
+      allOf:
+        - $ref: '#/components/schemas/PageDataBase'
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/BillItem'
+    PageSearchItemData:
+      allOf:
+        - $ref: '#/components/schemas/PageDataBase'
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/SearchItem'
+    PageNoticeItemData:
+      allOf:
+        - $ref: '#/components/schemas/PageDataBase'
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/NoticeItem'
+    PageArticleItemData:
+      allOf:
+        - $ref: '#/components/schemas/PageDataBase'
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/ArticleItem'
+    PageCollectionItemData:
+      allOf:
+        - $ref: '#/components/schemas/PageDataBase'
+        - type: object
+          properties:
+            list:
+              type: array
+              items:
+                $ref: '#/components/schemas/CollectionItem'
+    ApiResponseLoginTokenData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/LoginTokenData'
+    ApiResponseDeviceSessionList:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/DeviceSession'
+    ApiResponseUserProfileData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/UserProfileData'
+    ApiResponseQrcodeData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/QrcodeData'
+    ApiResponseUserSettingData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/UserSettingData'
+    ApiResponsePageContactItemData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PageContactItemData'
+    ApiResponsePageFriendRequestItemData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PageFriendRequestItemData'
+    ApiResponsePageConversationItemData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PageConversationItemData'
+    ApiResponseConversationOpenResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ConversationOpenResult'
+    ApiResponseConversationSettingData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ConversationSettingData'
+    ApiResponsePageMessageItemData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PageMessageItemData'
+    ApiResponseMessageSendResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageSendResult'
+    ApiResponseMessageRevokeResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageRevokeResult'
+    ApiResponseGroupDetailData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/GroupDetailData'
+    ApiResponseGroupMemberDataList:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/GroupMemberData'
+    ApiResponseGroupLeaveResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/GroupLeaveResult'
+    ApiResponsePageMomentItemData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PageMomentItemData'
+    ApiResponseMomentItem:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MomentItem'
+    ApiResponseLikeResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/LikeResult'
+    ApiResponseCommentResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/CommentResult'
+    ApiResponseCommentDeleteResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/CommentDeleteResult'
+    ApiResponseWalletOverview:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/WalletOverview'
+    ApiResponsePageBillItemData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PageBillItemData'
+    ApiResponseTransferResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/TransferResult'
+    ApiResponseRedPacketDetail:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/RedPacketDetail'
+    ApiResponseRedPacketOpenResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/RedPacketOpenResult'
+    ApiResponseFeatureItemList:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/FeatureItem'
+    ApiResponseScanResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ScanResult'
+    ApiResponseBootstrapData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/BootstrapData'
+    ApiResponseUploadPolicyData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/UploadPolicyData'
+    ApiResponseLocalUploadData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/LocalUploadData'
+    ApiResponseStringList:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: string
+    ApiResponsePageSearchItemData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PageSearchItemData'
+    ApiResponsePageNoticeItemData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PageNoticeItemData'
+    ApiResponseNoticeReadResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/NoticeReadResult'
+    ApiResponseOfficialAccountDetailList:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/OfficialAccountDetail'
+    ApiResponseOfficialAccountDetail:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/OfficialAccountDetail'
+    ApiResponsePageArticleItemData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PageArticleItemData'
+    ApiResponsePageCollectionItemData:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/PageCollectionItemData'
+    ApiResponseCollectionItem:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/CollectionItem'
+    ApiResponseCollectionItemList:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/CollectionItem'
+    ApiResponseCardItem:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/CardItem'
+    ApiResponseCardItemList:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/CardItem'
+    ApiResponseEmojiPackageItem:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/EmojiPackageItem'
+    ApiResponseEmojiPackageItemList:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/EmojiPackageItem'
+    ApiResponseArticleDetail:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ArticleDetail'
+    ApiResponseArticleLikeResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ArticleLikeResult'
+    ApiResponseOfficialFollowResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/OfficialFollowResult'
+    ApiResponseMiniAppRecentItemList:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/MiniAppRecentItem'
+    ApiResponseMiniAppSession:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MiniAppSession'
+    ApiResponseMiniAppFavoriteResult:
+      allOf:
+        - $ref: '#/components/schemas/ApiResponseBase'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MiniAppFavoriteResult'

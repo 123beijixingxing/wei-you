@@ -1,0 +1,21 @@
+{
+  "name": "微友",
+  "appid": "__UNI__WEIYOU__",
+  "description": "微友高仿微信超级应用前端骨架",
+  "versionName": "0.1.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "app-plus": {
+    "usingComponents": true
+  },
+  "mp-weixin": {
+    "appid": "wx-demo-weiyou"
+  },
+  "h5": {
+    "title": "微友",
+    "async": {
+      "loading": false,
+      "error": false
+    }
+  }
+}

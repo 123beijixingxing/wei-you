@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>微信全功能 UI 交互原型总览</title>
+  <link rel="stylesheet" href="./assets/prototype.css">
+</head>
+<body data-view="index">
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+  <div class="bg-orb orb-c"></div>
+  <div class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Docs / UI交互设计</p>
+        <h1>微信 App 全功能页面 UI 交互原型</h1>
+      </div>
+      <nav class="topnav">
+        <a class="is-active" href="./index.html">总览</a>
+        <a href="./all-pages.html">全部页面</a>
+        <a href="./flows.html">关键流程</a>
+      </nav>
+    </header>
+
+    <section class="hero-panel">
+      <div class="hero-copy">
+        <p class="eyebrow">WeiYou / WeChat Style Prototype Suite</p>
+        <h2>覆盖聊天、通讯录、发现、公众号、小程序、钱包、个人中心、设置安全的完整 HTML 原型。</h2>
+        <p>
+          这一套文档以现有 `weiyou-frontend` 页面能力为基础，整理为桌面可浏览的高保真 UI 交互原型，
+          用于产品评审、前端联调、体验走查与功能矩阵核对。
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="./all-pages.html">查看 40 个页面</a>
+          <a class="btn btn-secondary" href="./flows.html">查看端到端链路</a>
+        </div>
+      </div>
+      <div class="hero-aside">
+        <div class="mini-board" id="summary-grid"></div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Module Map</p>
+          <h3>功能模块总览</h3>
+        </div>
+        <a class="text-link" href="./all-pages.html">进入详细页面库</a>
+      </div>
+      <div class="module-grid" id="module-grid"></div>
+    </section>
+
+    <section class="section-block">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Core Flows</p>
+          <h3>关键业务链路</h3>
+        </div>
+        <a class="text-link" href="./flows.html">展开完整流程图</a>
+      </div>
+      <div class="flow-highlight-grid" id="flow-highlight"></div>
+    </section>
+  </div>
+  <script src="./assets/prototype.js"></script>
+</body>
+</html>

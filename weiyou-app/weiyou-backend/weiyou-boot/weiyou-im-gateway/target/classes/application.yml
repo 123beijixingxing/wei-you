@@ -1,0 +1,42 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: weiyou-im-gateway
+  datasource:
+    url: ${WEIYOU_DB_URL:jdbc:mysql://localhost:3306/weiyou_account?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${WEIYOU_DB_USERNAME:root}
+    password: ${WEIYOU_DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      initialization-fail-timeout: -1
+      connection-timeout: 1000
+  data:
+    redis:
+      host: ${WEIYOU_REDIS_HOST:localhost}
+      port: ${WEIYOU_REDIS_PORT:6379}
+      timeout: 5s
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+
+weiyou:
+  im:
+    redis-pubsub-enabled: ${WEIYOU_IM_REDIS_PUBSUB_ENABLED:true}
+  security:
+    token-secret: ${WEIYOU_TOKEN_SECRET:weiyou-dev-secret}
+
+management:
+  health:
+    db:
+      enabled: ${MANAGEMENT_HEALTH_DB_ENABLED:true}
+    redis:
+      enabled: ${MANAGEMENT_HEALTH_REDIS_ENABLED:true}
+  endpoints:
+    web:
+      exposure:
+        include: health,info

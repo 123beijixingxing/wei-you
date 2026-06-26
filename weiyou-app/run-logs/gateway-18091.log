@@ -1,0 +1,181 @@
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-06-02T16:49:58.446+08:00  INFO 65456 --- [weiyou-gateway] [           main] c.w.b.gateway.WeiyouGatewayApplication   : Starting WeiyouGatewayApplication v0.1.0-SNAPSHOT using Java 21.0.7 with PID 65456 (C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-boot\weiyou-gateway\target\weiyou-gateway-0.1.0-SNAPSHOT.jar started by admin in C:\openCode-AI\wei-you\weiyou-app)
+2026-06-02T16:49:58.462+08:00  INFO 65456 --- [weiyou-gateway] [           main] c.w.b.gateway.WeiyouGatewayApplication   : No active profile set, falling back to 1 default profile: "default"
+2026-06-02T16:50:02.422+08:00  INFO 65456 --- [weiyou-gateway] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2026-06-02T16:50:02.433+08:00  INFO 65456 --- [weiyou-gateway] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2026-06-02T16:50:02.490+08:00  INFO 65456 --- [weiyou-gateway] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 17 ms. Found 0 Redis repository interfaces.
+2026-06-02T16:50:03.486+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.cloud.context.scope.GenericScope     : BeanFactory id=d861ead3-f7d9-31ce-a64d-8f71daf05226
+2026-06-02T16:50:10.248+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.cloud.commons.util.InetUtils         : Cannot determine local hostname
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [After]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Before]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Between]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Cookie]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Header]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Host]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Method]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Path]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Query]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [ReadBody]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [RemoteAddr]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [XForwardedRemoteAddr]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [Weight]
+2026-06-02T16:50:10.658+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.c.g.r.RouteDefinitionRouteLocator    : Loaded RoutePredicateFactory [CloudFoundryRouteService]
+2026-06-02T16:50:11.242+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoints beneath base path '/actuator'
+2026-06-02T16:50:11.828+08:00  INFO 65456 --- [weiyou-gateway] [           main] o.s.b.web.embedded.netty.NettyWebServer  : Netty started on port 18091 (http)
+2026-06-02T16:50:11.920+08:00  INFO 65456 --- [weiyou-gateway] [           main] c.w.b.gateway.WeiyouGatewayApplication   : Started WeiyouGatewayApplication in 15.461 seconds (process running for 16.7)
+2026-06-02T16:52:30.657+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (2794 ms) traceId=e4bf65245e424122a2f59e7d76206de3
+2026-06-02T16:52:31.705+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1033 ms) traceId=e9c7328212c740e48da783f5458de625
+2026-06-02T16:52:31.764+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (42 ms) traceId=c3ad6826f05a4c7f994367596480a512
+2026-06-02T16:53:19.261+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (2093 ms) traceId=0e01396fb7c5459491b1cb4daa212ad1
+2026-06-02T16:53:20.303+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1024 ms) traceId=6332d3069d8543d7852d288fa585f5d2
+2026-06-02T16:53:20.328+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (6 ms) traceId=49e61b3f95ee40358a208abe93bbd472
+2026-06-02T16:59:33.885+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (2088 ms) traceId=22ae5c3aa22c4fcda37a640bd55b8183
+2026-06-02T16:59:34.910+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1014 ms) traceId=8036a30d62df4c7da2e3332e1b8cede6
+2026-06-02T16:59:34.932+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (4 ms) traceId=9c8313b013114d5d8b6105b03c03d393
+2026-06-02T17:01:15.146+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (2090 ms) traceId=eefa5d7dac934821aae65381d1de7661
+2026-06-02T17:01:16.177+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1022 ms) traceId=527bf16f91fb48ac9c3624b0aef466ba
+2026-06-02T17:01:16.195+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (5 ms) traceId=b01be02fd9954e2bba8e83c8248fd43b
+2026-06-02T17:01:23.126+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/login/password -> 200 (2087 ms) traceId=1497c22e0980497a9ead1e472720afcd
+2026-06-02T17:01:24.165+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1016 ms) traceId=3bc93b3c981e425ea16856cadf60fbfa
+2026-06-02T17:01:24.184+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (4 ms) traceId=47a1734e0aca4c4a91cd700ae54fa252
+2026-06-02T17:06:40.365+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1017 ms) traceId=c620873a6253463cb41824bf93bfa537
+2026-06-02T17:06:40.379+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1028 ms) traceId=964dbb11af974df186bb4d29e7bb7ea0
+2026-06-02T17:07:27.739+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1012 ms) traceId=6533c10b7d4743d38e939637916ec013
+2026-06-02T17:07:27.757+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1017 ms) traceId=b464fe3e39754b13886cfdad36823b47
+2026-06-02T17:07:27.764+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1017 ms) traceId=2f6dd6a3d7b64a60a15d1a89ccbe9f83
+2026-06-02T17:07:27.773+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1023 ms) traceId=249441f62ee7498592f97dfe540b586f
+2026-06-02T17:08:37.047+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1016 ms) traceId=2df02810845f4c589f9cd510ec488e09
+2026-06-02T17:08:37.061+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1024 ms) traceId=580c67406cbb4aeb80e4ed7a445f714d
+2026-06-02T17:08:37.082+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1025 ms) traceId=9aef2f67c6344c32979908f9621c570f
+2026-06-02T17:08:37.082+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1019 ms) traceId=4f9b20e2edb945e3aa1c44e2e61f84b7
+2026-06-02T17:09:54.062+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1025 ms) traceId=0eb1f39e4bab40818033ae70782cd35e
+2026-06-02T17:09:54.096+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1028 ms) traceId=9b184ab21daf4b81894998eadc3b0919
+2026-06-02T17:09:54.119+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (6 ms) traceId=ff3487961fe14461933b89afc866f669
+2026-06-02T17:10:36.289+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1036 ms) traceId=9b6ea4e2da1d4865b9ae031e11ff44c0
+2026-06-02T17:10:36.290+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1038 ms) traceId=4487a5b2476540bc82f4d45a1eaf6093
+2026-06-02T17:10:36.312+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (3 ms) traceId=4294c5f9612147fea35e487bb3aa40e0
+2026-06-02T17:10:59.250+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1028 ms) traceId=f766acb1291243e8a30d869c91a07a48
+2026-06-02T17:10:59.270+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1045 ms) traceId=882ce9cb264742079bb7cc43a2a3fe0b
+2026-06-02T17:10:59.291+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (6 ms) traceId=3d4d233b9a4343ac9a5f7ee772e6d7e2
+2026-06-02T17:11:06.156+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1025 ms) traceId=c876a0c26d004bc4871e57ca325c00f5
+2026-06-02T17:11:06.169+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1031 ms) traceId=2206ce5c83894b9e94ce84e0c8bf9acf
+2026-06-02T17:11:06.191+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (6 ms) traceId=aa495369410c47208f8e0f329ad596cf
+2026-06-02T17:13:55.675+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1017 ms) traceId=ebcdb248fc3840e48a5e00aed2878775
+2026-06-02T17:13:55.699+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1017 ms) traceId=9115e7ea596148c399f9e46971be9950
+2026-06-02T17:13:55.718+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (4 ms) traceId=0524c1c4905243b78c6237d4ee00f4ab
+2026-06-02T17:31:59.886+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1018 ms) traceId=e0863524aec149628d59b8952f5bbd01
+2026-06-02T17:31:59.919+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1031 ms) traceId=1c79f1a86a124c2dad1f455cc028b6a9
+2026-06-02T17:31:59.923+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1028 ms) traceId=acf201b522fe4872add9cb85b0972e45
+2026-06-02T17:31:59.923+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1027 ms) traceId=2439cf9b951546da8de0ff681783b8f9
+2026-06-02T17:41:18.608+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1026 ms) traceId=022041a54acf4bdaa1b3be2b37d4e3a0
+2026-06-02T17:41:18.609+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1021 ms) traceId=7692723549344283bced472b0041b54c
+2026-06-02T17:41:18.634+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (5 ms) traceId=0793509ce93e4e69b53bc71472438561
+2026-06-03T15:35:24.486+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 401 (248 ms) traceId=8d5d3c038f3e4d2c8d0d80ec3ba1c505
+2026-06-03T15:35:24.486+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 401 (248 ms) traceId=b206d21a922b401da8af5c2fa4cccd40
+2026-06-03T15:35:24.705+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway POST /api/auth/token/refresh -> 200 (199 ms) traceId=c0011cc5dbcf43eb956299c1f89ce6e9
+2026-06-03T15:35:25.826+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-5] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1107 ms) traceId=06b95b9d89c242f3a387acd1ef20e580
+2026-06-03T15:35:25.829+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-4] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1111 ms) traceId=28c6615cd3314d4ea3e109d8aa0feafd
+2026-06-03T15:35:25.878+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-6] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (27 ms) traceId=b67c0bd9c809452da9e86e3f26a15e35
+2026-06-03T15:35:27.527+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-1] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/user/profile/me -> 200 (1016 ms) traceId=a4dfc77b75f24920a58938b6cc258675
+2026-06-03T15:35:27.527+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-2] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /api/chat/conversation/list -> 200 (1015 ms) traceId=0dc8c20df6fa4e5b844082c9e579a042
+2026-06-03T15:35:27.556+08:00  INFO 65456 --- [weiyou-gateway] [ctor-http-nio-3] c.w.b.g.filter.GatewayAccessFilter       : gateway GET /ws/chat -> 200 (13 ms) traceId=909e1bfeff9c4db787d03b53f33397ab
+2026-06-03T15:37:25.953+08:00 ERROR 65456 --- [weiyou-gateway] [ctor-http-nio-3] reactor.core.publisher.Operators         : Operator called default onErrorDropped
+
+reactor.core.Exceptions$ErrorCallbackNotImplemented: java.io.IOException: Connection reset by peer
+Caused by: java.io.IOException: Connection reset by peer
+	at java.base/sun.nio.ch.SocketDispatcher.write0(Native Method) ~[na:na]
+	at java.base/sun.nio.ch.SocketDispatcher.write(SocketDispatcher.java:54) ~[na:na]
+	at java.base/sun.nio.ch.IOUtil.writeFromNativeBuffer(IOUtil.java:137) ~[na:na]
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:81) ~[na:na]
+	at java.base/sun.nio.ch.IOUtil.write(IOUtil.java:58) ~[na:na]
+	at java.base/sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:542) ~[na:na]
+	at io.netty.channel.socket.nio.NioSocketChannel.doWrite(NioSocketChannel.java:414) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.flush0(AbstractChannel.java:929) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.nio.AbstractNioChannel$AbstractNioUnsafe.flush0(AbstractNioChannel.java:359) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.flush(AbstractChannel.java:893) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.flush(DefaultChannelPipeline.java:1319) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeFlush0(AbstractChannelHandlerContext.java:935) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeFlush(AbstractChannelHandlerContext.java:921) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.flush(AbstractChannelHandlerContext.java:907) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.ChannelOutboundHandlerAdapter.flush(ChannelOutboundHandlerAdapter.java:125) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeFlush0(AbstractChannelHandlerContext.java:939) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeWriteAndFlush(AbstractChannelHandlerContext.java:957) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.write(AbstractChannelHandlerContext.java:982) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.writeAndFlush(AbstractChannelHandlerContext.java:950) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.writeAndFlush(AbstractChannelHandlerContext.java:1000) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.DefaultChannelPipeline.writeAndFlush(DefaultChannelPipeline.java:974) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannel.writeAndFlush(AbstractChannel.java:305) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at reactor.netty.http.server.WebsocketServerOperations.lambda$sendClose$5(WebsocketServerOperations.java:263) ~[reactor-netty-http-1.1.23.jar!/:1.1.23]
+	at reactor.netty.FutureMono$DeferredFutureMono.subscribe(FutureMono.java:100) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.core.publisher.InternalMonoOperator.subscribe(InternalMonoOperator.java:76) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.MonoFlatMap$FlatMapMain.onNext(MonoFlatMap.java:165) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxMap$MapSubscriber.onNext(FluxMap.java:122) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxFilter$FilterSubscriber.onNext(FluxFilter.java:113) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxMap$MapConditionalSubscriber.onNext(FluxMap.java:224) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxFirstWithSignal$FirstEmittingSubscriber.onNext(FluxFirstWithSignal.java:333) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.Operators$MonoInnerProducerBase.complete(Operators.java:2834) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.SinkOneMulticast.tryEmitValue(SinkOneMulticast.java:66) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.netty.http.client.WebsocketClientOperations.sendCloseNow(WebsocketClientOperations.java:273) ~[reactor-netty-http-1.1.23.jar!/:1.1.23]
+	at reactor.netty.http.client.WebsocketClientOperations.onInboundCancel(WebsocketClientOperations.java:175) ~[reactor-netty-http-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.FluxReceive.unsubscribeReceiver(FluxReceive.java:510) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.FluxReceive.lambda$new$0(FluxReceive.java:91) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.FluxReceive.cancelReceiver(FluxReceive.java:201) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.FluxReceive.doCancel(FluxReceive.java:207) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.FluxReceive.cancel(FluxReceive.java:107) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.core.publisher.FluxFilter$FilterSubscriber.cancel(FluxFilter.java:191) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxMap$MapSubscriber.cancel(FluxMap.java:169) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxMap$MapSubscriber.cancel(FluxMap.java:169) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxPeek$PeekSubscriber.cancel(FluxPeek.java:153) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxPeek$PeekSubscriber.cancel(FluxPeek.java:153) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxPeek$PeekSubscriber.cancel(FluxPeek.java:153) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxPeek$PeekSubscriber.cancel(FluxPeek.java:153) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxMap$MapSubscriber.cancel(FluxMap.java:169) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.Operators.terminate(Operators.java:1328) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.netty.channel.MonoSendMany$SendManyInner.cancel(MonoSendMany.java:168) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.core.publisher.Operators.terminate(Operators.java:1328) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.MonoZip$ZipInner.cancel(MonoZip.java:548) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.MonoZip$ZipCoordinator.cancelExcept(MonoZip.java:322) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.MonoZip$ZipInner.onError(MonoZip.java:515) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.netty.channel.MonoSendMany$SendManyInner.run(MonoSendMany.java:352) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.MonoSendMany$SendManyInner.trySchedule(MonoSendMany.java:434) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.MonoSendMany$SendManyInner.onError(MonoSendMany.java:199) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.core.publisher.FluxMap$MapSubscriber.onError(FluxMap.java:134) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxPeek$PeekSubscriber.onError(FluxPeek.java:222) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxPeek$PeekSubscriber.onError(FluxPeek.java:222) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxPeek$PeekSubscriber.onError(FluxPeek.java:222) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxPeek$PeekSubscriber.onError(FluxPeek.java:222) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxMap$MapSubscriber.onError(FluxMap.java:134) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxMap$MapSubscriber.onError(FluxMap.java:134) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.core.publisher.FluxFilter$FilterSubscriber.onError(FluxFilter.java:157) ~[reactor-core-3.6.11.jar!/:3.6.11]
+	at reactor.netty.channel.FluxReceive.terminateReceiver(FluxReceive.java:480) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.FluxReceive.drainReceiver(FluxReceive.java:275) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.FluxReceive.onInboundError(FluxReceive.java:468) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.ChannelOperations.onInboundError(ChannelOperations.java:514) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at reactor.netty.channel.ChannelOperationsHandler.exceptionCaught(ChannelOperationsHandler.java:153) ~[reactor-netty-core-1.1.23.jar!/:1.1.23]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeExceptionCaught(AbstractChannelHandlerContext.java:346) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeExceptionCaught(AbstractChannelHandlerContext.java:325) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.fireExceptionCaught(AbstractChannelHandlerContext.java:317) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.exceptionCaught(DefaultChannelPipeline.java:1324) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeExceptionCaught(AbstractChannelHandlerContext.java:346) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.AbstractChannelHandlerContext.invokeExceptionCaught(AbstractChannelHandlerContext.java:325) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.DefaultChannelPipeline.fireExceptionCaught(DefaultChannelPipeline.java:856) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.handleReadException(AbstractNioByteChannel.java:125) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:177) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:788) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:724) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:650) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562) ~[netty-transport-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:997) ~[netty-common-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74) ~[netty-common-4.1.114.Final.jar!/:4.1.114.Final]
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30) ~[netty-common-4.1.114.Final.jar!/:4.1.114.Final]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+

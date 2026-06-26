@@ -1,0 +1,5 @@
+com\weiyou\media\config\MediaStorageConfiguration.class
+com\weiyou\media\controller\MediaController$LocalUploadData.class
+com\weiyou\media\controller\MediaController.class
+com\weiyou\media\controller\MediaController$UploadPolicyData.class
+com\weiyou\media\controller\MediaController$UploadPolicyRequest.class

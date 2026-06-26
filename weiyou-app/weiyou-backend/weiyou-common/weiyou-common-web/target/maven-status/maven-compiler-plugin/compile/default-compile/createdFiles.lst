@@ -1,0 +1,3 @@
+com\weiyou\common\web\config\WebMvcConfiguration.class
+com\weiyou\common\web\exception\GlobalExceptionHandler.class
+com\weiyou\common\web\filter\TraceIdFilter.class

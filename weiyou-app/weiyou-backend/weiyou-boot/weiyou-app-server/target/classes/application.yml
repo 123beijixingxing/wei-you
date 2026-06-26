@@ -1,0 +1,33 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+spring:
+  application:
+    name: weiyou-app-server
+  datasource:
+    url: ${WEIYOU_DB_URL:jdbc:mysql://localhost:3306/weiyou_account?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai}
+    username: ${WEIYOU_DB_USERNAME:root}
+    password: ${WEIYOU_DB_PASSWORD:root}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      initialization-fail-timeout: -1
+      connection-timeout: 1000
+  data:
+    redis:
+      host: ${WEIYOU_REDIS_HOST:localhost}
+      port: ${WEIYOU_REDIS_PORT:6379}
+      timeout: 5s
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info

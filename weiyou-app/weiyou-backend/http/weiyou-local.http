@@ -1,0 +1,192 @@
+### Weiyou local API smoke script
+### Usage:
+### 1) Start weiyou-app-server on http://localhost:8080/api
+### 2) Run password login first
+### 3) Paste returned accessToken into @accessToken
+
+@baseUrl = http://localhost:8080/api
+@mobile = 13800000001
+@password = 123456
+@deviceId = device-demo-android-10001
+@accessToken = paste-access-token-here
+@refreshToken = paste-refresh-token-here
+@conversationId = 90001
+@groupConversationId = 90002
+@targetUserId = 10002
+@redPacketId = 81001
+
+### Bootstrap
+GET {{baseUrl}}/app/bootstrap?clientType=app&version=0.1.0
+
+### Password login
+POST {{baseUrl}}/auth/login/password
+Content-Type: application/json
+
+{
+  "mobile": "{{mobile}}",
+  "password": "{{password}}",
+  "deviceId": "{{deviceId}}"
+}
+
+### Refresh token
+POST {{baseUrl}}/auth/token/refresh
+Content-Type: application/json
+
+{
+  "refreshToken": "{{refreshToken}}"
+}
+
+### Current profile
+GET {{baseUrl}}/user/profile/me
+Authorization: Bearer {{accessToken}}
+
+### Update profile
+POST {{baseUrl}}/user/profile/update
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "nickname": "Micro Friend Demo",
+  "city": "Shenzhen",
+  "signature": "Local integration run"
+}
+
+### Device list
+GET {{baseUrl}}/auth/device/list
+Authorization: Bearer {{accessToken}}
+
+### Conversation list
+GET {{baseUrl}}/chat/conversation/list?pageSize=20
+Authorization: Bearer {{accessToken}}
+
+### Message history
+GET {{baseUrl}}/chat/message/history?conversationId={{conversationId}}&pageSize=20
+Authorization: Bearer {{accessToken}}
+
+### Send chat message
+POST {{baseUrl}}/chat/message/send
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "conversationId": {{conversationId}},
+  "msgType": 1,
+  "clientMsgId": "cmsg-local-001",
+  "content": {
+    "text": "hello from local http script"
+  }
+}
+
+### Mark message as read
+POST {{baseUrl}}/chat/message/read
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "conversationId": {{conversationId}},
+  "messageId": 70002
+}
+
+### Wallet overview
+GET {{baseUrl}}/wallet/overview
+Authorization: Bearer {{accessToken}}
+
+### Wallet bills
+GET {{baseUrl}}/wallet/bill/list?pageNo=1
+Authorization: Bearer {{accessToken}}
+
+### Transfer to friend
+POST {{baseUrl}}/wallet/transfer/create
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "targetUserId": {{targetUserId}},
+  "amountFen": 100,
+  "remark": "demo transfer"
+}
+
+### Create group red packet
+POST {{baseUrl}}/wallet/red-packet/create
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "amountFen": 300,
+  "count": 3,
+  "type": 2,
+  "greeting": "good luck",
+  "groupId": {{groupConversationId}}
+}
+
+### Open seeded red packet
+POST {{baseUrl}}/wallet/red-packet/open
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "redPacketId": {{redPacketId}}
+}
+
+### Discovery features
+GET {{baseUrl}}/feature/discovery?cityCode=440300
+Authorization: Bearer {{accessToken}}
+
+### Search suggest
+GET {{baseUrl}}/search/suggest?keyword=weiyou
+Authorization: Bearer {{accessToken}}
+
+### Official account detail
+GET {{baseUrl}}/official/account/detail?officialId=20001
+Authorization: Bearer {{accessToken}}
+
+### Open miniapp session
+POST {{baseUrl}}/miniapp/open
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "appId": "miniapp-demo-001",
+  "path": "/pages/index/index",
+  "scene": "chat"
+}
+
+### Notice list
+GET {{baseUrl}}/notice/list
+Authorization: Bearer {{accessToken}}
+
+### Submit feedback
+POST {{baseUrl}}/feedback/create
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "content": "demo feedback from local http script",
+  "images": [],
+  "contact": "demo@local"
+}
+
+### Upload policy
+POST {{baseUrl}}/media/upload/policy
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "bizType": "moment",
+  "fileName": "demo.png",
+  "contentType": "image/png"
+}
+
+### Logout current device
+POST {{baseUrl}}/auth/logout
+Authorization: Bearer {{accessToken}}
+Content-Type: application/json
+
+{
+  "deviceId": "{{deviceId}}"
+}
+
+### WebSocket reference
+### ws://localhost:8081/ws/chat?token=<accessToken>&deviceId=<deviceId>
+### Example message:
+### {"event":"MESSAGE_SEND","requestId":"ws-msg-001","data":{"conversationId":90001,"msgType":1,"content":{"text":"hello ws"}}}

@@ -1,0 +1,12 @@
+com\weiyou\relation\controller\ContactController$FriendRequestItem.class
+com\weiyou\relation\infra\persistence\mapper\FriendRelationMapper.class
+com\weiyou\relation\controller\ContactController$ContactItem.class
+com\weiyou\relation\controller\ContactController.class
+com\weiyou\relation\domain\entity\FriendRequestEntity.class
+com\weiyou\relation\app\service\RelationPersistenceService.class
+com\weiyou\relation\controller\ContactController$SearchUserItem.class
+com\weiyou\relation\domain\entity\FriendRelationEntity.class
+com\weiyou\relation\controller\ContactController$HandleFriendRequest.class
+com\weiyou\relation\controller\ContactController$FriendApplyRequest.class
+com\weiyou\relation\app\service\impl\RelationPersistenceServiceImpl.class
+com\weiyou\relation\infra\persistence\mapper\FriendRequestMapper.class

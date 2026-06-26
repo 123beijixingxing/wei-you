@@ -1,0 +1,2073 @@
+openapi: 3.0.3
+info:
+  title: 微友 OpenAPI 草案
+  version: 0.1.0
+  description: |
+    微友 App 后端接口草案，基于需求文档、前端页面清单、数据库设计文档整理。
+
+    说明：
+    - 当前为第一版接口草案，主要覆盖 P0-P1 业务域。
+    - 所有业务接口默认返回统一结构：code、message、traceId、data。
+    - 鉴权接口默认使用 Bearer Token。
+    - WebSocket 长连接地址：`ws://localhost:8080/ws/chat?token={token}&deviceId={deviceId}`。
+servers:
+  - url: http://localhost:8080
+    description: 本地开发环境
+tags:
+  - name: App
+    description: 启动配置与协议
+  - name: Auth
+    description: 登录、注册、设备、令牌
+  - name: User
+    description: 用户资料与状态
+  - name: Contact
+    description: 通讯录与关系链
+  - name: Chat
+    description: 会话与消息
+  - name: Group
+    description: 群聊管理
+  - name: Moment
+    description: 朋友圈
+  - name: Feature
+    description: 发现页与功能中心
+  - name: Search
+    description: 搜索能力
+  - name: Scan
+    description: 扫一扫
+  - name: Wallet
+    description: 钱包、账单、转账、红包
+  - name: Official
+    description: 公众号
+  - name: MiniApp
+    description: 小程序
+  - name: Notice
+    description: 通知消息
+  - name: Feedback
+    description: 用户反馈
+  - name: Media
+    description: 媒体上传策略
+security:
+  - BearerAuth: []
+x-websocket:
+  chat:
+    url: ws://localhost:8080/ws/chat?token={token}&deviceId={deviceId}
+    heartbeatSeconds: 30
+    events:
+      - CONNECT_ACK
+      - HEARTBEAT
+      - MESSAGE_SEND
+      - MESSAGE_ACK
+      - MESSAGE_RECEIVE
+      - MESSAGE_READ
+      - MESSAGE_RECALL
+      - TYPING
+      - CALL_INVITE
+      - CALL_SIGNAL
+      - NOTICE_PUSH
+paths:
+  /api/app/bootstrap:
+    get:
+      tags: [App]
+      summary: 获取启动配置
+      operationId: getAppBootstrap
+      security: []
+      parameters:
+        - name: clientType
+          in: query
+          required: true
+          schema:
+            type: string
+            example: app
+        - name: version
+          in: query
+          required: true
+          schema:
+            type: string
+            example: 1.0.0
+      responses:
+        '200':
+          description: 启动配置
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBootstrap'
+
+  /api/auth/login/password:
+    post:
+      tags: [Auth]
+      summary: 手机号密码登录
+      operationId: loginByPassword
+      security: []
+      parameters:
+        - $ref: '#/components/parameters/XClientType'
+        - $ref: '#/components/parameters/XTraceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordLoginRequest'
+      responses:
+        '200':
+          description: 登录成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLoginToken'
+
+  /api/auth/login/sms:
+    post:
+      tags: [Auth]
+      summary: 手机号验证码登录
+      operationId: loginBySms
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmsLoginRequest'
+      responses:
+        '200':
+          description: 登录成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLoginToken'
+
+  /api/auth/register:
+    post:
+      tags: [Auth]
+      summary: 用户注册
+      operationId: registerUser
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterRequest'
+      responses:
+        '200':
+          description: 注册成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLoginToken'
+
+  /api/auth/sms/send:
+    post:
+      tags: [Auth]
+      summary: 发送短信验证码
+      operationId: sendSmsCode
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmsSendRequest'
+      responses:
+        '200':
+          description: 发送成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/auth/token/refresh:
+    post:
+      tags: [Auth]
+      summary: 刷新访问令牌
+      operationId: refreshAccessToken
+      security: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshTokenRequest'
+      responses:
+        '200':
+          description: 刷新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseLoginToken'
+
+  /api/auth/logout:
+    post:
+      tags: [Auth]
+      summary: 退出登录
+      operationId: logout
+      parameters:
+        - $ref: '#/components/parameters/XDeviceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LogoutRequest'
+      responses:
+        '200':
+          description: 退出成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/auth/device/list:
+    get:
+      tags: [Auth]
+      summary: 查询登录设备列表
+      operationId: listLoginDevices
+      responses:
+        '200':
+          description: 设备列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseDeviceList'
+
+  /api/auth/device/offline:
+    post:
+      tags: [Auth]
+      summary: 下线指定设备
+      operationId: offlineDevice
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeviceOfflineRequest'
+      responses:
+        '200':
+          description: 下线成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/user/profile/me:
+    get:
+      tags: [User]
+      summary: 获取当前用户简要资料
+      operationId: getMyProfile
+      responses:
+        '200':
+          description: 当前用户资料
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseUserProfile'
+
+  /api/user/profile/detail:
+    get:
+      tags: [User]
+      summary: 获取用户完整资料
+      operationId: getUserProfileDetail
+      parameters:
+        - name: userId
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 资料详情
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseUserProfile'
+
+  /api/user/profile/update:
+    post:
+      tags: [User]
+      summary: 修改个人资料
+      operationId: updateUserProfile
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateProfileRequest'
+      responses:
+        '200':
+          description: 修改成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/user/qrcode/get:
+    get:
+      tags: [User]
+      summary: 获取个人二维码
+      operationId: getUserQrcode
+      parameters:
+        - name: dynamic
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+      responses:
+        '200':
+          description: 二维码信息
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseQrcode'
+
+  /api/user/status/update:
+    post:
+      tags: [User]
+      summary: 更新状态文案
+      operationId: updateUserStatus
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateStatusRequest'
+      responses:
+        '200':
+          description: 更新成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/contact/list:
+    get:
+      tags: [Contact]
+      summary: 获取通讯录列表
+      operationId: listContacts
+      parameters:
+        - name: keyword
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: letter
+          in: query
+          required: false
+          schema:
+            type: string
+            maxLength: 1
+      responses:
+        '200':
+          description: 通讯录列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseContactPage'
+
+  /api/contact/friend/apply:
+    post:
+      tags: [Contact]
+      summary: 发起加好友申请
+      operationId: applyFriend
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FriendApplyRequest'
+      responses:
+        '200':
+          description: 申请成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/contact/friend/request/list:
+    get:
+      tags: [Contact]
+      summary: 获取好友申请列表
+      operationId: listFriendRequests
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: 申请列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseFriendRequestPage'
+
+  /api/contact/friend/request/handle:
+    post:
+      tags: [Contact]
+      summary: 处理好友申请
+      operationId: handleFriendRequest
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/HandleFriendRequest'
+      responses:
+        '200':
+          description: 处理成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/chat/conversation/list:
+    get:
+      tags: [Chat]
+      summary: 获取会话列表
+      operationId: listConversations
+      parameters:
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+      responses:
+        '200':
+          description: 会话列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseConversationPage'
+
+  /api/chat/message/history:
+    get:
+      tags: [Chat]
+      summary: 获取历史消息
+      operationId: listConversationMessages
+      parameters:
+        - name: conversationId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+      responses:
+        '200':
+          description: 历史消息
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMessagePage'
+
+  /api/chat/message/send:
+    post:
+      tags: [Chat]
+      summary: 发送补偿消息
+      operationId: sendChatMessage
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SendMessageRequest'
+      responses:
+        '200':
+          description: 发送成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMessageSendResult'
+
+  /api/chat/message/read:
+    post:
+      tags: [Chat]
+      summary: 上报已读
+      operationId: markMessageRead
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MessageReadRequest'
+      responses:
+        '200':
+          description: 上报成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/group/create:
+    post:
+      tags: [Group]
+      summary: 创建群聊
+      operationId: createGroup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateGroupRequest'
+      responses:
+        '200':
+          description: 创建成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetail'
+
+  /api/group/detail:
+    get:
+      tags: [Group]
+      summary: 获取群详情
+      operationId: getGroupDetail
+      parameters:
+        - name: groupId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 群详情
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseGroupDetail'
+
+  /api/group/member/invite:
+    post:
+      tags: [Group]
+      summary: 邀请成员入群
+      operationId: inviteGroupMembers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InviteGroupMemberRequest'
+      responses:
+        '200':
+          description: 邀请成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/moment/timeline:
+    get:
+      tags: [Moment]
+      summary: 获取朋友圈时间线
+      operationId: listMomentTimeline
+      parameters:
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: pageSize
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 20
+      responses:
+        '200':
+          description: 动态列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMomentPage'
+
+  /api/moment/create:
+    post:
+      tags: [Moment]
+      summary: 发布朋友圈
+      operationId: createMoment
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMomentRequest'
+      responses:
+        '200':
+          description: 发布成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMomentDetail'
+
+  /api/moment/like:
+    post:
+      tags: [Moment]
+      summary: 点赞或取消点赞
+      operationId: toggleMomentLike
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MomentLikeRequest'
+      responses:
+        '200':
+          description: 操作成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/feature/discovery:
+    get:
+      tags: [Feature]
+      summary: 获取发现页配置
+      operationId: getDiscoveryFeatures
+      parameters:
+        - name: cityCode
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 发现页入口配置
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseFeatureList'
+
+  /api/search/suggest:
+    get:
+      tags: [Search]
+      summary: 获取联想建议
+      operationId: getSearchSuggest
+      parameters:
+        - name: keyword
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: bizType
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 联想建议
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSearchSuggest'
+
+  /api/search/global:
+    get:
+      tags: [Search]
+      summary: 综合搜索
+      operationId: searchGlobal
+      parameters:
+        - name: keyword
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: bizType
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: pageNo
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+      responses:
+        '200':
+          description: 搜索结果
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseSearchPage'
+
+  /api/scan/resolve:
+    post:
+      tags: [Scan]
+      summary: 解析二维码内容
+      operationId: resolveScanCode
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanResolveRequest'
+      responses:
+        '200':
+          description: 解析成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseScanResult'
+
+  /api/wallet/overview:
+    get:
+      tags: [Wallet]
+      summary: 获取钱包首页概览
+      operationId: getWalletOverview
+      responses:
+        '200':
+          description: 钱包概览
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseWalletOverview'
+
+  /api/wallet/bill/list:
+    get:
+      tags: [Wallet]
+      summary: 获取账单列表
+      operationId: listWalletBills
+      parameters:
+        - name: type
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: pageNo
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int32
+            default: 1
+        - name: startDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: 账单列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseBillPage'
+
+  /api/wallet/transfer/create:
+    post:
+      tags: [Wallet]
+      summary: 发起转账
+      operationId: createTransfer
+      parameters:
+        - $ref: '#/components/parameters/XIdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransferCreateRequest'
+      responses:
+        '200':
+          description: 转账创建成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseTransferResult'
+
+  /api/wallet/red-packet/create:
+    post:
+      tags: [Wallet]
+      summary: 创建红包
+      operationId: createRedPacket
+      parameters:
+        - $ref: '#/components/parameters/XIdempotencyKey'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedPacketCreateRequest'
+      responses:
+        '200':
+          description: 红包创建成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseRedPacketDetail'
+
+  /api/wallet/red-packet/open:
+    post:
+      tags: [Wallet]
+      summary: 领取红包
+      operationId: openRedPacket
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedPacketOpenRequest'
+      responses:
+        '200':
+          description: 领取成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseRedPacketOpenResult'
+
+  /api/official/account/detail:
+    get:
+      tags: [Official]
+      summary: 获取公众号详情
+      operationId: getOfficialAccountDetail
+      parameters:
+        - name: officialId
+          in: query
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: 公众号详情
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseOfficialAccountDetail'
+
+  /api/miniapp/open:
+    post:
+      tags: [MiniApp]
+      summary: 获取小程序打开会话
+      operationId: openMiniApp
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MiniAppOpenRequest'
+      responses:
+        '200':
+          description: 打开会话创建成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseMiniAppSession'
+
+  /api/notice/list:
+    get:
+      tags: [Notice]
+      summary: 获取系统通知列表
+      operationId: listNotices
+      parameters:
+        - name: type
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: cursor
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: 通知列表
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseNoticePage'
+
+  /api/feedback/create:
+    post:
+      tags: [Feedback]
+      summary: 提交问题反馈
+      operationId: createFeedback
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedbackCreateRequest'
+      responses:
+        '200':
+          description: 提交成功
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseVoid'
+
+  /api/media/upload/policy:
+    post:
+      tags: [Media]
+      summary: 获取上传策略
+      operationId: getUploadPolicy
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadPolicyRequest'
+      responses:
+        '200':
+          description: 上传策略
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponseUploadPolicy'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  parameters:
+    XDeviceId:
+      name: X-Device-Id
+      in: header
+      required: false
+      schema:
+        type: string
+      description: 设备唯一标识
+    XClientType:
+      name: X-Client-Type
+      in: header
+      required: false
+      schema:
+        type: string
+        example: app
+      description: 客户端类型
+    XTraceId:
+      name: X-Trace-Id
+      in: header
+      required: false
+      schema:
+        type: string
+      description: 链路追踪ID
+    XIdempotencyKey:
+      name: X-Idempotency-Key
+      in: header
+      required: false
+      schema:
+        type: string
+      description: 幂等键，用于转账、红包、支付等接口
+  schemas:
+    BaseResponse:
+      type: object
+      required: [code, message, traceId]
+      properties:
+        code:
+          type: integer
+          format: int32
+          example: 0
+        message:
+          type: string
+          example: ok
+        traceId:
+          type: string
+          example: 20260511abc123
+    ApiResponseVoid:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: object
+              nullable: true
+              additionalProperties: false
+    ApiResponseBootstrap:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/BootstrapData'
+    ApiResponseLoginToken:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/LoginTokenData'
+    ApiResponseDeviceList:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/DeviceSession'
+    ApiResponseUserProfile:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/UserProfile'
+    ApiResponseQrcode:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/QrcodeData'
+    ApiResponseContactPage:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ContactPageData'
+    ApiResponseFriendRequestPage:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/FriendRequestPageData'
+    ApiResponseConversationPage:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ConversationPageData'
+    ApiResponseMessagePage:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessagePageData'
+    ApiResponseMessageSendResult:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MessageSendResult'
+    ApiResponseGroupDetail:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/GroupDetail'
+    ApiResponseMomentPage:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MomentPageData'
+    ApiResponseMomentDetail:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MomentPost'
+    ApiResponseFeatureList:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/FeatureEntry'
+    ApiResponseSearchSuggest:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                type: string
+    ApiResponseSearchPage:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/SearchPageData'
+    ApiResponseScanResult:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/ScanResult'
+    ApiResponseWalletOverview:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/WalletOverview'
+    ApiResponseBillPage:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/BillPageData'
+    ApiResponseTransferResult:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/TransferResult'
+    ApiResponseRedPacketDetail:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/RedPacketDetail'
+    ApiResponseRedPacketOpenResult:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/RedPacketOpenResult'
+    ApiResponseOfficialAccountDetail:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/OfficialAccountDetail'
+    ApiResponseMiniAppSession:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/MiniAppSession'
+    ApiResponseNoticePage:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/NoticePageData'
+    ApiResponseUploadPolicy:
+      allOf:
+        - $ref: '#/components/schemas/BaseResponse'
+        - type: object
+          properties:
+            data:
+              $ref: '#/components/schemas/UploadPolicyData'
+
+    BootstrapData:
+      type: object
+      properties:
+        latestVersion:
+          type: string
+        forceUpgrade:
+          type: boolean
+        agreementVersion:
+          type: string
+        noticeText:
+          type: string
+    LoginTokenData:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+        expireIn:
+          type: integer
+          format: int32
+        needDeviceVerify:
+          type: boolean
+    DeviceSession:
+      type: object
+      properties:
+        deviceId:
+          type: string
+        deviceType:
+          type: string
+        deviceModel:
+          type: string
+        systemVersion:
+          type: string
+        loginCity:
+          type: string
+        loginIp:
+          type: string
+        lastLoginAt:
+          type: string
+          format: date-time
+        online:
+          type: boolean
+    UserProfile:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        weiyouNo:
+          type: string
+        nickname:
+          type: string
+        avatar:
+          type: string
+        gender:
+          type: integer
+          format: int32
+        city:
+          type: string
+        signature:
+          type: string
+        statusText:
+          type: string
+        qrcodeUrl:
+          type: string
+    QrcodeData:
+      type: object
+      properties:
+        ticket:
+          type: string
+        qrcodeUrl:
+          type: string
+        dynamic:
+          type: boolean
+        expireAt:
+          type: string
+          format: date-time
+    ContactSummary:
+      type: object
+      properties:
+        userId:
+          type: integer
+          format: int64
+        nickname:
+          type: string
+        remark:
+          type: string
+        avatar:
+          type: string
+        letter:
+          type: string
+        star:
+          type: boolean
+    FriendRequestItem:
+      type: object
+      properties:
+        requestId:
+          type: integer
+          format: int64
+        fromUserId:
+          type: integer
+          format: int64
+        nickname:
+          type: string
+        avatar:
+          type: string
+        applyMessage:
+          type: string
+        status:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+          format: date-time
+    ConversationSummary:
+      type: object
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+        conversationType:
+          type: integer
+          format: int32
+        title:
+          type: string
+        avatar:
+          type: string
+        unreadCount:
+          type: integer
+          format: int32
+        top:
+          type: boolean
+        mute:
+          type: boolean
+        lastMessageDigest:
+          type: string
+        lastMessageTime:
+          type: string
+          format: date-time
+    MessageItem:
+      type: object
+      properties:
+        messageId:
+          type: integer
+          format: int64
+        clientMsgId:
+          type: string
+        conversationId:
+          type: integer
+          format: int64
+        senderUserId:
+          type: integer
+          format: int64
+        msgType:
+          type: integer
+          format: int32
+        content:
+          type: object
+          additionalProperties: true
+        sendStatus:
+          type: integer
+          format: int32
+        sendTime:
+          type: string
+          format: date-time
+        readStatus:
+          type: integer
+          format: int32
+    MessageSendResult:
+      type: object
+      properties:
+        messageId:
+          type: integer
+          format: int64
+        clientMsgId:
+          type: string
+        sendStatus:
+          type: integer
+          format: int32
+        sendTime:
+          type: string
+          format: date-time
+    GroupDetail:
+      type: object
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        groupName:
+          type: string
+        groupAvatar:
+          type: string
+        ownerUserId:
+          type: integer
+          format: int64
+        memberCount:
+          type: integer
+          format: int32
+        muteAll:
+          type: boolean
+        joinPolicy:
+          type: integer
+          format: int32
+    MomentPost:
+      type: object
+      properties:
+        momentId:
+          type: integer
+          format: int64
+        authorUserId:
+          type: integer
+          format: int64
+        nickname:
+          type: string
+        avatar:
+          type: string
+        content:
+          type: string
+        mediaList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaItem'
+        likeCount:
+          type: integer
+          format: int32
+        commentCount:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+          format: date-time
+    FeatureEntry:
+      type: object
+      properties:
+        featureCode:
+          type: string
+        featureName:
+          type: string
+        iconUrl:
+          type: string
+        routePath:
+          type: string
+        enabled:
+          type: boolean
+    SearchResultItem:
+      type: object
+      properties:
+        bizType:
+          type: string
+        bizId:
+          type: string
+        title:
+          type: string
+        subtitle:
+          type: string
+        cover:
+          type: string
+        routePath:
+          type: string
+    ScanResult:
+      type: object
+      properties:
+        scanType:
+          type: string
+        scanToken:
+          type: string
+        title:
+          type: string
+        actionType:
+          type: string
+        payload:
+          type: object
+          additionalProperties: true
+    WalletOverview:
+      type: object
+      properties:
+        availableBalanceFen:
+          type: integer
+          format: int64
+        frozenBalanceFen:
+          type: integer
+          format: int64
+        realnameStatus:
+          type: integer
+          format: int32
+        payPasswordStatus:
+          type: integer
+          format: int32
+        bankCardCount:
+          type: integer
+          format: int32
+    BillItem:
+      type: object
+      properties:
+        billId:
+          type: integer
+          format: int64
+        transactionNo:
+          type: string
+        billType:
+          type: string
+        amountFen:
+          type: integer
+          format: int64
+        incomeExpenseType:
+          type: integer
+          format: int32
+        billTitle:
+          type: string
+        billTime:
+          type: string
+          format: date-time
+    TransferResult:
+      type: object
+      properties:
+        transactionId:
+          type: integer
+          format: int64
+        transactionNo:
+          type: string
+        status:
+          type: integer
+          format: int32
+        amountFen:
+          type: integer
+          format: int64
+    RedPacketDetail:
+      type: object
+      properties:
+        redPacketId:
+          type: integer
+          format: int64
+        redPacketNo:
+          type: string
+        senderUserId:
+          type: integer
+          format: int64
+        packetType:
+          type: integer
+          format: int32
+        totalAmountFen:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        status:
+          type: integer
+          format: int32
+        expireAt:
+          type: string
+          format: date-time
+    RedPacketOpenResult:
+      type: object
+      properties:
+        redPacketNo:
+          type: string
+        receiverUserId:
+          type: integer
+          format: int64
+        receiveAmountFen:
+          type: integer
+          format: int64
+        rankNo:
+          type: integer
+          format: int32
+        status:
+          type: integer
+          format: int32
+    OfficialAccountDetail:
+      type: object
+      properties:
+        officialId:
+          type: integer
+          format: int64
+        name:
+          type: string
+        avatar:
+          type: string
+        intro:
+          type: string
+        verified:
+          type: boolean
+        followed:
+          type: boolean
+    MiniAppSession:
+      type: object
+      properties:
+        appId:
+          type: string
+        appName:
+          type: string
+        sessionToken:
+          type: string
+        path:
+          type: string
+        expireAt:
+          type: string
+          format: date-time
+    NoticeItem:
+      type: object
+      properties:
+        noticeId:
+          type: integer
+          format: int64
+        noticeType:
+          type: string
+        title:
+          type: string
+        content:
+          type: string
+        readStatus:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+          format: date-time
+    UploadPolicyData:
+      type: object
+      properties:
+        uploadUrl:
+          type: string
+        storageKey:
+          type: string
+        method:
+          type: string
+        expireAt:
+          type: string
+          format: date-time
+        headers:
+          type: object
+          additionalProperties:
+            type: string
+    MediaItem:
+      type: object
+      properties:
+        mediaId:
+          type: integer
+          format: int64
+        mediaType:
+          type: string
+        url:
+          type: string
+        coverUrl:
+          type: string
+        width:
+          type: integer
+          format: int32
+        height:
+          type: integer
+          format: int32
+
+    ContactPageData:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/ContactSummary'
+        pageNo:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+    FriendRequestPageData:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/FriendRequestItem'
+        pageNo:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+    ConversationPageData:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversationSummary'
+        pageNo:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+    MessagePageData:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/MessageItem'
+        pageNo:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+    MomentPageData:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/MomentPost'
+        pageNo:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+    SearchPageData:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/SearchResultItem'
+        pageNo:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+    BillPageData:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/BillItem'
+        pageNo:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+    NoticePageData:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            $ref: '#/components/schemas/NoticeItem'
+        pageNo:
+          type: integer
+          format: int32
+        pageSize:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+        hasMore:
+          type: boolean
+        nextCursor:
+          type: string
+
+    PasswordLoginRequest:
+      type: object
+      required: [mobile, password, deviceId]
+      properties:
+        mobile:
+          type: string
+        password:
+          type: string
+        deviceId:
+          type: string
+    SmsLoginRequest:
+      type: object
+      required: [mobile, smsCode, deviceId]
+      properties:
+        mobile:
+          type: string
+        smsCode:
+          type: string
+        deviceId:
+          type: string
+    RegisterRequest:
+      type: object
+      required: [mobile, smsCode, password]
+      properties:
+        mobile:
+          type: string
+        smsCode:
+          type: string
+        password:
+          type: string
+    SmsSendRequest:
+      type: object
+      required: [mobile, scene]
+      properties:
+        mobile:
+          type: string
+        scene:
+          type: string
+    RefreshTokenRequest:
+      type: object
+      required: [refreshToken]
+      properties:
+        refreshToken:
+          type: string
+    LogoutRequest:
+      type: object
+      required: [deviceId]
+      properties:
+        deviceId:
+          type: string
+    DeviceOfflineRequest:
+      type: object
+      required: [deviceId]
+      properties:
+        deviceId:
+          type: string
+    UpdateProfileRequest:
+      type: object
+      properties:
+        nickname:
+          type: string
+        avatar:
+          type: string
+        gender:
+          type: integer
+          format: int32
+        city:
+          type: string
+        signature:
+          type: string
+    UpdateStatusRequest:
+      type: object
+      required: [statusCode]
+      properties:
+        statusCode:
+          type: string
+        statusText:
+          type: string
+        expireAt:
+          type: string
+          format: date-time
+    FriendApplyRequest:
+      type: object
+      required: [targetUserId]
+      properties:
+        targetUserId:
+          type: integer
+          format: int64
+        remark:
+          type: string
+        source:
+          type: string
+    HandleFriendRequest:
+      type: object
+      required: [requestId, action]
+      properties:
+        requestId:
+          type: integer
+          format: int64
+        action:
+          type: string
+          enum: [accept, reject]
+    SendMessageRequest:
+      type: object
+      required: [conversationId, msgType, content, clientMsgId]
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+        msgType:
+          type: integer
+          format: int32
+        clientMsgId:
+          type: string
+        content:
+          type: object
+          additionalProperties: true
+    MessageReadRequest:
+      type: object
+      required: [conversationId, messageId]
+      properties:
+        conversationId:
+          type: integer
+          format: int64
+        messageId:
+          type: integer
+          format: int64
+    CreateGroupRequest:
+      type: object
+      required: [groupName, memberIds]
+      properties:
+        groupName:
+          type: string
+        memberIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    InviteGroupMemberRequest:
+      type: object
+      required: [groupId, memberIds]
+      properties:
+        groupId:
+          type: integer
+          format: int64
+        memberIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    CreateMomentRequest:
+      type: object
+      properties:
+        content:
+          type: string
+        mediaList:
+          type: array
+          items:
+            $ref: '#/components/schemas/MediaItem'
+        visibleScope:
+          type: string
+        location:
+          type: object
+          properties:
+            name:
+              type: string
+            lat:
+              type: number
+              format: double
+            lng:
+              type: number
+              format: double
+    MomentLikeRequest:
+      type: object
+      required: [momentId, action]
+      properties:
+        momentId:
+          type: integer
+          format: int64
+        action:
+          type: string
+          enum: [like, unlike]
+    ScanResolveRequest:
+      type: object
+      required: [scanCode]
+      properties:
+        scanCode:
+          type: string
+        scene:
+          type: string
+    TransferCreateRequest:
+      type: object
+      required: [targetUserId, amountFen]
+      properties:
+        targetUserId:
+          type: integer
+          format: int64
+        amountFen:
+          type: integer
+          format: int64
+        remark:
+          type: string
+    RedPacketCreateRequest:
+      type: object
+      required: [amountFen, count, type]
+      properties:
+        amountFen:
+          type: integer
+          format: int64
+        count:
+          type: integer
+          format: int32
+        type:
+          type: integer
+          format: int32
+        greeting:
+          type: string
+        groupId:
+          type: integer
+          format: int64
+          nullable: true
+    RedPacketOpenRequest:
+      type: object
+      required: [redPacketId]
+      properties:
+        redPacketId:
+          type: integer
+          format: int64
+    MiniAppOpenRequest:
+      type: object
+      required: [appId]
+      properties:
+        appId:
+          type: string
+        path:
+          type: string
+        scene:
+          type: string
+    FeedbackCreateRequest:
+      type: object
+      required: [content]
+      properties:
+        content:
+          type: string
+        images:
+          type: array
+          items:
+            type: string
+        contact:
+          type: string
+    UploadPolicyRequest:
+      type: object
+      required: [bizType, fileName, contentType]
+      properties:
+        bizType:
+          type: string
+        fileName:
+          type: string
+        contentType:
+          type: string

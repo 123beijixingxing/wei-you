@@ -1,0 +1,6 @@
+com\weiyou\common\security\context\LoginUser.class
+com\weiyou\common\security\context\UserContext.class
+com\weiyou\common\security\filter\BearerTokenAuthenticationFilter.class
+com\weiyou\common\security\config\SecurityConfiguration.class
+com\weiyou\common\security\token\TokenPayload.class
+com\weiyou\common\security\token\TokenService.class

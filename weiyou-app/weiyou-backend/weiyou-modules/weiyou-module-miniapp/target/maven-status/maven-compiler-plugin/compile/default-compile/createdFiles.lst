@@ -1,0 +1,7 @@
+com\weiyou\miniapp\controller\MiniAppController$MiniAppOpenRequest.class
+com\weiyou\miniapp\controller\MiniAppController$MiniAppFavoriteResult.class
+com\weiyou\miniapp\controller\MiniAppController$MiniAppRecentItem.class
+com\weiyou\miniapp\controller\MiniAppController$MiniAppRecentRemoveRequest.class
+com\weiyou\miniapp\controller\MiniAppController$MiniAppSession.class
+com\weiyou\miniapp\controller\MiniAppController.class
+com\weiyou\miniapp\controller\MiniAppController$MiniAppFavoriteRequest.class

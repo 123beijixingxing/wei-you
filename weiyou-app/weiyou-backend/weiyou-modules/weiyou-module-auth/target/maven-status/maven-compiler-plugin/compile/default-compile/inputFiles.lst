@@ -1,0 +1,7 @@
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-auth\src\main\java\com\weiyou\auth\app\service\AuthPersistenceService.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-auth\src\main\java\com\weiyou\auth\app\service\impl\AuthPersistenceServiceImpl.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-auth\src\main\java\com\weiyou\auth\controller\AuthController.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-auth\src\main\java\com\weiyou\auth\domain\entity\UserAccountEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-auth\src\main\java\com\weiyou\auth\domain\entity\UserDeviceEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-auth\src\main\java\com\weiyou\auth\infra\persistence\mapper\UserAccountMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-auth\src\main\java\com\weiyou\auth\infra\persistence\mapper\UserDeviceMapper.java

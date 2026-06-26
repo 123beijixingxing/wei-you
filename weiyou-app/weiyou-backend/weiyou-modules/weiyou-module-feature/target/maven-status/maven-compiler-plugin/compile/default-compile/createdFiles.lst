@@ -1,0 +1,17 @@
+com\weiyou\feature\controller\ScanController$ScanResult.class
+com\weiyou\feature\controller\EmojiController$EmojiPackageItem.class
+com\weiyou\feature\controller\CardController$CardActionRequest.class
+com\weiyou\feature\controller\EmojiController$EmojiPackageActionRequest.class
+com\weiyou\feature\controller\AppController$BootstrapData.class
+com\weiyou\feature\controller\CardController$CardItem.class
+com\weiyou\feature\controller\FeatureController.class
+com\weiyou\feature\controller\CollectionController.class
+com\weiyou\feature\controller\ScanController$ScanResolveRequest.class
+com\weiyou\feature\controller\ScanController.class
+com\weiyou\feature\controller\FeatureController$FeatureItem.class
+com\weiyou\feature\controller\CollectionController$CollectionItem.class
+com\weiyou\feature\controller\AppController.class
+com\weiyou\feature\controller\CardController.class
+com\weiyou\feature\controller\EmojiController.class
+com\weiyou\feature\controller\CollectionController$CollectionCreateRequest.class
+com\weiyou\feature\controller\CollectionController$CollectionDeleteRequest.class

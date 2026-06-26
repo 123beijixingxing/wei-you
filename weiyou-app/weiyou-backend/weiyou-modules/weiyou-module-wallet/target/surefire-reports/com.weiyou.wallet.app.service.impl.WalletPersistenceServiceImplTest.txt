@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.weiyou.wallet.app.service.impl.WalletPersistenceServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.309 s -- in com.weiyou.wallet.app.service.impl.WalletPersistenceServiceImplTest

@@ -1,0 +1,9 @@
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-chat\src\main\java\com\weiyou\chat\app\service\ChatPersistenceService.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-chat\src\main\java\com\weiyou\chat\app\service\impl\ChatPersistenceServiceImpl.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-chat\src\main\java\com\weiyou\chat\controller\ChatController.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-chat\src\main\java\com\weiyou\chat\domain\entity\ConversationEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-chat\src\main\java\com\weiyou\chat\domain\entity\ConversationUserEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-chat\src\main\java\com\weiyou\chat\domain\entity\MessageRecordEntity.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-chat\src\main\java\com\weiyou\chat\infra\persistence\mapper\ConversationMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-chat\src\main\java\com\weiyou\chat\infra\persistence\mapper\ConversationUserMapper.java
+C:\openCode-AI\wei-you\weiyou-app\weiyou-backend\weiyou-modules\weiyou-module-chat\src\main\java\com\weiyou\chat\infra\persistence\mapper\MessageRecordMapper.java

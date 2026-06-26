@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>微信全功能页面原型库</title>
+  <link rel="stylesheet" href="./assets/prototype.css">
+</head>
+<body data-view="all-pages">
+  <div class="bg-orb orb-a"></div>
+  <div class="bg-orb orb-b"></div>
+  <div class="bg-orb orb-c"></div>
+  <div class="app-shell app-shell-wide">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Docs / UI交互设计</p>
+        <h1>微信 App 全量页面原型库</h1>
+      </div>
+      <nav class="topnav">
+        <a href="./index.html">总览</a>
+        <a class="is-active" href="./all-pages.html">全部页面</a>
+        <a href="./flows.html">关键流程</a>
+      </nav>
+    </header>
+
+    <section class="workspace">
+      <aside class="workspace-sidebar">
+        <div class="sidebar-panel">
+          <p class="eyebrow">Filter</p>
+          <h2>页面筛选</h2>
+          <input id="page-search" class="search-field" type="search" placeholder="搜索页面、路由、模块、交互关键词">
+          <div class="module-filter-list" id="module-filters"></div>
+        </div>
+        <div class="sidebar-panel page-list-panel">
+          <div class="page-list-head">
+            <h3>页面清单</h3>
+            <span id="page-count"></span>
+          </div>
+          <div class="page-list" id="page-list"></div>
+        </div>
+      </aside>
+
+      <main class="workspace-main">
+        <section class="detail-hero" id="page-detail-header"></section>
+        <div class="preview-layout">
+          <section class="detail-card" id="page-detail-panel"></section>
+          <section class="preview-card" id="page-preview-panel"></section>
+        </div>
+      </main>
+    </section>
+  </div>
+  <script src="./assets/prototype.js"></script>
+</body>
+</html>
